@@ -1,0 +1,22 @@
+{
+  "name": "algotests",
+  "version": "0.1.0",
+  "description": "algorithm exercises",
+  "main": "bubbleSort.js",
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [
+    "algorithms",
+    "data-structures",
+    "javascript"
+  ],
+  "type": "module",
+  "author": "musagenius345",
+  "license": "MIT",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "vitest": "^0.32.2"
+  }
+}
