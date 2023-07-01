@@ -1,5 +1,5 @@
 import { describe, it, expect } from '/data/data/com.termux/files/home/.local/share/pnpm/global/5/node_modules/vitest';
-import { identity, addb, subb, mulb, minb, maxb, add, sub, mul, min, max, addRecurse, mulRecurse, minRecurse, maxRecurse } from './musagenius345.js';
+import { identity, addb, subb, mulb, minb, maxb, add, sub, mul, min, max, addRecurse, mulRecurse, minRecurse, maxRecurse, not, acc, accPartial } from './musagenius345.js';
 
 // Test suite for the identity function
 describe('identity', () => {
@@ -255,3 +255,33 @@ describe('maxRecurse', () => {
     expect(result).to.equal(2.5);
   });
 });
+
+
+//Test suite for not()
+describe('not', () => {
+  it('returns negation of result', () => {
+    const isOdd = (x) => x % 2 === 1
+    const isEven = not(isOdd)
+    expect(isEven(1)).toBeFalsy()
+    expect(isEven(2)).toBeTruthy()
+  })
+})
+
+//Test suite for acc
+describe('acc', () => {
+  it('takes a function and an initial value and returns a function that runs the initial function on each argument, accumulating the result', () => {
+    let add = acc(addb, 0)
+    expect(add(1, 2, 4)).to.equal(7)
+
+    let mul = acc(mulb, 1)
+    expect(mul(1, 2, 4)).to.equal(8)
+  })
+})
+
+
+describe('accPartial', () => {
+  it('takes in a function, a start index, and an end index, and returns a function that accumulates a subset of its arguments by applying the given function to all elements between start and end.', () => {
+    const addSecondToThird = accPartial(add, 1, 3)
+    expect(addSecondToThird(1, 2, 4, 8)).toEqual([1, 6, 8])
+  })
+})

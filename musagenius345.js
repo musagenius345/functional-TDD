@@ -10,7 +10,7 @@ export const minb = (a, b) => Math.min(a, b);
 
 export const maxb = (a, b) => Math.max(a, b);
 
-export const add = (...nums) => nums.reduce((sum, num) => sum + num, 0);
+export const add = (...nums) => nums.reduce((sum, num) => sum + num, 0)
 
 export const sub = (...nums) => nums.reduce((diff, num) => diff - num)
 
@@ -66,31 +66,23 @@ export const maxRecurse = (...nums) => {
 
 
 
-//   const [first, ...rest] = nums
-//   const maxRest = rest.length > 0 ? maxRecurse(...rest) : NaN
-//
-//   return isNaN(maxRest) || first > minRest ? first : minRest
-// }
-//
-// const not = (func) => {
-//   return (...args) => {
-//     return !func(...args)
-//   }
-// }
-//
-// const acc = (func, intial) => {
-//   return (...args) => {
-//     return args.reduce(func, intial)
 
-//   }
-// }
-//
-// const accPartial = (func, start, end) => {
-//   return (...args) => {
-//     const subset = args.slice(start, end)
-//     return subset.reduce(func)
-//   }
-// }
+export const not = (func) => (...args) => !func(...args)
+
+export const acc = (func, intial) => (...args) => args.reduce(func, intial)
+
+
+export const accPartial = (func, start, end) => (...args) => {
+  const subset = args.slice(start, end);
+  const result = func(...subset);
+  const accumulatedArgs = args.slice(0, start)
+    .concat(result)
+    .concat(args.slice(end));
+  return accumulatedArgs;
+};
+
+
+
 //
 // const accRecurse = (func, initial) => {
 //   const recurse = (accumulator, [currentArg, ...restArgs]) =>
