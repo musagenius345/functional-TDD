@@ -69,36 +69,91 @@ export const maxRecurse = (...nums) => {
 
 export const not = (func) => (...args) => !func(...args)
 
-export const acc = (func, intial) => (...args) => args.reduce(func, intial)
-
+export const acc = (func, intial = 0) => (...args) => args.reduce(func, intial)
 
 export const accPartial = (func, start, end) => (...args) => {
-  const subset = args.slice(start, end);
-  const result = func(...subset);
-  const accumulatedArgs = args.slice(0, start)
-    .concat(result)
-    .concat(args.slice(end));
-  return accumulatedArgs;
-};
+  const subset = args.slice(start, end)
+  const result = func(...subset)
+  const beginning = args.slice(0, start)
+  const ending = args.slice(end)
+  const accumulatedArgs = beginning.concat(result).concat(ending)
+  return accumulatedArgs
+}
+
+export const accRecurse = (func, initial = 0) => {
+  const recurse = (accumulator, [currentArg, ...restArgs]) =>
+    currentArg === undefined ? accumulator : recurse(func(accumulator, currentArg), restArgs)
+
+  return (...args) => recurse(initial, args)
+}
+
+
+//export const fill = (num) => Array(num).fill(num)
+export const fill = (num) => {
+  let arr = []
+  while (arr.length < num) {
+    arr.push(num)
+  }
+  return arr
+}
+
+const fill_2 = num => Array.from({ length: num }, () => num)
+
+function fillRecurse_2(num, array = []) {
+  if (array.length >= num) {
+    return array;
+  }
+
+  array.push(num);
+  return fillRecurse_2(num, array);
+}
+
+function fillRecurse_3(num, array = []) {
+  if (array.length >= num) {
+    return array;
+  }
+
+  return fillRecurse_3(num, array.concat(num));
+}
+
+function fillRecurse_4(num, index = 0) {
+  if (index >= num) {
+    return [];
+  }
+
+  return [num].concat(fillRecurse_4(num, index + 1));
+}
+
+export function fillRecurse(num, current = num, array = []) {
+  if (current <= 0) {
+    return array;
+  }
+
+  return fillRecurse(num, current - 1, [...array, num]);
+}
+
+export const set = (...args) => [...new Set(args)]
+
+export const identityf = (arg) => arg
+
+export const addf = (a) => (b) => a + b
+
+export const liftf = (binary) => (a) => (b) => binary(a, b)
+
+export const pure = (func) => func(1)
+
+
+
+
+
+
+
+
+
 
 
 
 //
-// const accRecurse = (func, initial) => {
-//   const recurse = (accumulator, [currentArg, ...restArgs]) =>
-//     currentArg === undefined ?
-//     accumulator :
-//     recurse(func(accumulator, currentArg), restArgs)
-//
-//   return (...args) => recurse(initial, args)
-// }
-//
-// const fill = (num) => Array(num).fill(num)
-//
-//
-// const fillRecurse = (num) => num === 0 ? [] : [...fillRecurse(num - 1), num]
-//
-// const set = (...args) => [...new Set(args)]
 //
 // const identityf = (x) => () => x
 //
