@@ -1,5 +1,5 @@
 import { describe, it, expect, test } from 'vitest';
-import { identity, addb, subb, mulb, minb, maxb, add, sub, mul, min, max, addRecurse, mulRecurse, minRecurse, maxRecurse, not, acc, accPartial, accRecurse, fill, fillRecurse, set, identityf, addf, liftf, pure, curryb, curry, inc, twiceUnary } from './musagenius345.js';
+import { identity, addb, subb, mulb, minb, maxb, add, sub, mul, min, max, addRecurse, mulRecurse, minRecurse, maxRecurse, not, acc, accPartial, accRecurse, fill, fillRecurse, set, identityf, addf, liftf, pure, curryb, curry, inc, twiceUnary, doubl } from './musagenius345.js';
 
 // Test suite for the identity function
 describe('identity', () => {
@@ -402,5 +402,12 @@ describe('twiceUnary', () => {
     let square = multu(5)
     expect(double).to.equal(4)
     expect(square).to.equal(25)
+  })
+})
+
+
+describe('doubl', () => {
+  test('Use the function twiceUnary to create the doubl function', () =>{
+    expect(doubl(4)).toStrictEqual(8)
   })
 })

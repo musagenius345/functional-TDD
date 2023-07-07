@@ -159,3 +159,5 @@ export const inc = (x: number) => x + 1
 
 export const twiceUnary = (binary: Function) => (x: number)  => binary(x, x)
 
+export const doubl = (num: number) => twiceUnary(addb)(num)
+
