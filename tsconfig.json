@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "preserveConstEnums": true
+  },
+
+  "include": ["**/*.ts"],
+  "exclude": ["**/*.test.ts"]
+}
+
