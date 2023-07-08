@@ -1,8 +1,8 @@
 export const identity = x => x;
 
-export const addb = (a, b) => a + b;
+export const addb = (a:number, b:number) => a + b;
 
-export const subb = (a, b) => a - b;
+export const subb = (a:number, b:number) => a - b;
 
 export const mulb = (a, b) => a * b;
 
@@ -159,5 +159,8 @@ export const inc = (x: number) => x + 1
 
 export const twiceUnary = (binary: Function) => (x: number)  => binary(x, x)
 
-export const doubl = (num: number) => twiceUnary(addb)(num)
+// export function doubl(num: number) {
+//     return twiceUnary(addb)(num);
+// }
+//
 
