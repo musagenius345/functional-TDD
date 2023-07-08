@@ -89,7 +89,7 @@ export const accRecurse = (func, initial = 0) => {
 
 
 //export const fill = (num) => Array(num).fill(num)
-export const fill = (num) => {
+export const fill = (num: number) => {
   let arr = []
   while (arr.length < num) {
     arr.push(num)
@@ -136,9 +136,9 @@ export const set = (...args) => [...new Set(args)]
 
 export const identityf = (arg) => arg
 
-export const addf = (a) => (b) => a + b
+export const addf = (a: number) => (b: number) => a + b
 
-export const liftf = (binary:Function) => (a) => (b) => binary(a, b)
+export const liftf = (binary:Function) => (a: number) => (b: number) => binary(a, b)
 
 export const pure = (x: number, y: number=5, z:number) => {
   function impure(x:number){
@@ -159,8 +159,85 @@ export const inc = (x: number) => x + 1
 
 export const twiceUnary = (binary: Function) => (x: number)  => binary(x, x)
 
-// export function doubl(num: number) {
-//     return twiceUnary(addb)(num);
-// }
-//
+export const doubl = twiceUnary((a: number, b: number) => a + b);
 
+export const square = (num: number) =>  twiceUnary(mulb)(num)
+
+export const twice = (func: Function) => (...num: number[]) => (func(...num)) * 2
+
+export const reverseb = (func: Function) => (a:number, b:number) => func(b, a)
+
+export const reverse = (func: Function) => (...args: number[]) => func(...args.reverse())
+
+export const composeuTwo = (unary1: Function, unary2: Function) => (arg: number) => unary2(unary1(arg))
+
+export const composeu = (...funcs: Function[]) => funcs.reduce((accumulator, func) => (x: number) => func(accumulator(x)))
+
+export const composeb = (binary1: Function, binary2: Function) => (a: number, b: number, c: number) => binary2(binary1(a, b), c)
+
+export const composeTwo = (func1: Function, func2: Function) => (...args: number[]) => func2(func1(...args))
+
+export const compose = (...funcs: Function []) => (...args: number[]) => funcs.reduce((acc, func) => func(acc));
+
+// export
+/** 
+ *composeb(binary1, binary2) ⇒ function
+Write a function composeb that takes two binary functions and returns a function that calls them both
+
+Param	Type
+binary1	function
+binary2	function
+Example
+
+composeb(addb, mulb)(2, 3, 7) // (2 + 3) * 7 = 35
+
+composeTwo(func1, func2) ⇒ function
+Write a function composeTwo that takes two functions and returns a function that calls them both
+
+Param	Type
+func1	function
+func2	function
+Example
+
+composeTwo(add, square)(2, 3, 7, 5) // (2 + 3 + 7 + 5)^2 = 289
+
+compose(...funcs) ⇒ function
+Write a function compose that takes any amount of functions and returns a function that takes any amount of arguments and gives them to the first function, then that result to the second function and so on
+
+Param	Type
+...funcs	function
+Example
+
+const f = compose(add, doubl, fill, max)
+f(0, 1, 2)
+// add(0, 1, 2) -> 3
+// doubl(3) -> 6
+// fill(6) -> [ 6, 6, 6, 6, 6, 6 ]
+// max(6, 6, 6, 6, 6, 6) -> 6
+
+limitb(binary, lmt) ⇒ function
+Write a function limitb that allows a binary function to be called a limited number of times
+
+Param	Type
+binary	function
+lmt	number
+Example
+
+let addLmtb = limitb(addb, 1)
+addLmtb(3, 4) // 7
+addLmtb(3, 5) // undefined
+
+limit(func, lmt) ⇒ function
+Write a function limit that is generalized for any amount of arguments
+
+Param	Type
+func	function
+lmt	number
+Example
+
+let addLmt = limit(add, 1)
+addLmt(1, 2, 4) // 7
+addLmt(3, 5, 9, 2) // undefined
+ *
+ *
+ * */

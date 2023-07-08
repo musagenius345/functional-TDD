@@ -1,24 +1,86 @@
-export const identity = x => x;
-export const addb = (a, b) => a + b;
-export const subb = (a, b) => a - b;
-export const mulb = (a, b) => a * b;
-export const minb = (a, b) => Math.min(a, b);
-export const maxb = (a, b) => Math.max(a, b);
-export const add = (...nums) => nums.reduce((sum, num) => sum + num, 0);
-export const sub = (...nums) => nums.reduce((diff, num) => diff - num);
-export const mul = (...nums) => nums.reduce((product, num) => product * num);
-export const min = (...nums) => Math.min(...nums);
-export const max = (...nums) => Math.max(...nums);
-export const addRecurse = (...nums) => {
+"use strict";
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.doubl = exports.twiceUnary = exports.inc = exports.curry = exports.curryb = exports.pure = exports.liftf = exports.addf = exports.identityf = exports.set = exports.fillRecurse = exports.fill = exports.accRecurse = exports.accPartial = exports.acc = exports.not = exports.maxRecurse = exports.minRecurse = exports.mulRecurse = exports.addRecurse = exports.max = exports.min = exports.mul = exports.sub = exports.add = exports.maxb = exports.minb = exports.mulb = exports.subb = exports.addb = exports.identity = void 0;
+var identity = function (x) { return x; };
+exports.identity = identity;
+var addb = function (a, b) { return a + b; };
+exports.addb = addb;
+var subb = function (a, b) { return a - b; };
+exports.subb = subb;
+var mulb = function (a, b) { return a * b; };
+exports.mulb = mulb;
+var minb = function (a, b) { return Math.min(a, b); };
+exports.minb = minb;
+var maxb = function (a, b) { return Math.max(a, b); };
+exports.maxb = maxb;
+var add = function () {
+    var nums = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        nums[_i] = arguments[_i];
+    }
+    return nums.reduce(function (sum, num) { return sum + num; }, 0);
+};
+exports.add = add;
+var sub = function () {
+    var nums = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        nums[_i] = arguments[_i];
+    }
+    return nums.reduce(function (diff, num) { return diff - num; });
+};
+exports.sub = sub;
+var mul = function () {
+    var nums = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        nums[_i] = arguments[_i];
+    }
+    return nums.reduce(function (product, num) { return product * num; });
+};
+exports.mul = mul;
+var min = function () {
+    var nums = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        nums[_i] = arguments[_i];
+    }
+    return Math.min.apply(Math, nums);
+};
+exports.min = min;
+var max = function () {
+    var nums = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        nums[_i] = arguments[_i];
+    }
+    return Math.max.apply(Math, nums);
+};
+exports.max = max;
+var addRecurse = function () {
+    var nums = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        nums[_i] = arguments[_i];
+    }
     if (nums.length === 0) {
         return 0;
     }
     else {
-        const [first, ...rest] = nums;
-        return first + addRecurse(...rest);
+        var first = nums[0], rest = nums.slice(1);
+        return first + exports.addRecurse.apply(void 0, rest);
     }
 };
-export const mulRecurse = (...nums) => {
+exports.addRecurse = addRecurse;
+var mulRecurse = function () {
+    var nums = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        nums[_i] = arguments[_i];
+    }
     if (nums.length === 0) {
         return 0;
     }
@@ -26,19 +88,29 @@ export const mulRecurse = (...nums) => {
         return nums[0];
     }
     else {
-        const [first, ...rest] = nums;
-        return first * mulRecurse(...rest);
+        var first = nums[0], rest = nums.slice(1);
+        return first * exports.mulRecurse.apply(void 0, rest);
     }
 };
-export const minRecurse = (...nums) => {
+exports.mulRecurse = mulRecurse;
+var minRecurse = function () {
+    var nums = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        nums[_i] = arguments[_i];
+    }
     if (nums.length === 0) {
         return NaN;
     }
-    const [first, ...rest] = nums;
-    const minRest = rest.length > 0 ? minRecurse(...rest) : NaN;
+    var first = nums[0], rest = nums.slice(1);
+    var minRest = rest.length > 0 ? exports.minRecurse.apply(void 0, rest) : NaN;
     return isNaN(minRest) || first < minRest ? first : minRest;
 };
-export const maxRecurse = (...nums) => {
+exports.minRecurse = minRecurse;
+var maxRecurse = function () {
+    var nums = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        nums[_i] = arguments[_i];
+    }
     if (nums.length === 0) {
         return NaN;
     }
@@ -46,64 +118,116 @@ export const maxRecurse = (...nums) => {
         return nums[0];
     }
     else {
-        const [first, ...rest] = nums;
-        const maxRest = maxRecurse(...rest);
+        var first = nums[0], rest = nums.slice(1);
+        var maxRest = exports.maxRecurse.apply(void 0, rest);
         return Math.max(first, maxRest);
     }
 };
-export const not = (func) => (...args) => !func(...args);
-export const acc = (func, intial = 0) => (...args) => args.reduce(func, intial);
-export const accPartial = (func, start, end) => (...args) => {
-    const subset = args.slice(start, end);
-    const result = func(...subset);
-    const beginning = args.slice(0, start);
-    const ending = args.slice(end);
-    const accumulatedArgs = beginning.concat(result).concat(ending);
+exports.maxRecurse = maxRecurse;
+var not = function (func) { return function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    return !func.apply(void 0, args);
+}; };
+exports.not = not;
+var acc = function (func, intial) {
+    if (intial === void 0) { intial = 0; }
+    return function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return args.reduce(func, intial);
+    };
+};
+exports.acc = acc;
+var accPartial = function (func, start, end) { return function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    var subset = args.slice(start, end);
+    var result = func.apply(void 0, subset);
+    var beginning = args.slice(0, start);
+    var ending = args.slice(end);
+    var accumulatedArgs = beginning.concat(result).concat(ending);
     return accumulatedArgs;
+}; };
+exports.accPartial = accPartial;
+var accRecurse = function (func, initial) {
+    if (initial === void 0) { initial = 0; }
+    var recurse = function (accumulator, _a) {
+        var currentArg = _a[0], restArgs = _a.slice(1);
+        return currentArg === undefined ? accumulator : recurse(func(accumulator, currentArg), restArgs);
+    };
+    return function () {
+        var args = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            args[_i] = arguments[_i];
+        }
+        return recurse(initial, args);
+    };
 };
-export const accRecurse = (func, initial = 0) => {
-    const recurse = (accumulator, [currentArg, ...restArgs]) => currentArg === undefined ? accumulator : recurse(func(accumulator, currentArg), restArgs);
-    return (...args) => recurse(initial, args);
-};
+exports.accRecurse = accRecurse;
 //export const fill = (num) => Array(num).fill(num)
-export const fill = (num) => {
-    let arr = [];
+var fill = function (num) {
+    var arr = [];
     while (arr.length < num) {
         arr.push(num);
     }
     return arr;
 };
-const fill_2 = num => Array.from({ length: num }, () => num);
-function fillRecurse_2(num, array = []) {
+exports.fill = fill;
+var fill_2 = function (num) { return Array.from({ length: num }, function () { return num; }); };
+function fillRecurse_2(num, array) {
+    if (array === void 0) { array = []; }
     if (array.length >= num) {
         return array;
     }
     array.push(num);
     return fillRecurse_2(num, array);
 }
-function fillRecurse_3(num, array = []) {
+function fillRecurse_3(num, array) {
+    if (array === void 0) { array = []; }
     if (array.length >= num) {
         return array;
     }
     return fillRecurse_3(num, array.concat(num));
 }
-function fillRecurse_4(num, index = 0) {
+function fillRecurse_4(num, index) {
+    if (index === void 0) { index = 0; }
     if (index >= num) {
         return [];
     }
     return [num].concat(fillRecurse_4(num, index + 1));
 }
-export function fillRecurse(num, current = num, array = []) {
+function fillRecurse(num, current, array) {
+    if (current === void 0) { current = num; }
+    if (array === void 0) { array = []; }
     if (current <= 0) {
         return array;
     }
-    return fillRecurse(num, current - 1, [...array, num]);
+    return fillRecurse(num, current - 1, __spreadArray(__spreadArray([], array, true), [num], false));
 }
-export const set = (...args) => [...new Set(args)];
-export const identityf = (arg) => arg;
-export const addf = (a) => (b) => a + b;
-export const liftf = (binary) => (a) => (b) => binary(a, b);
-export const pure = (x, y = 5, z) => {
+exports.fillRecurse = fillRecurse;
+var set = function () {
+    var args = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
+    }
+    return __spreadArray([], new Set(args), true);
+};
+exports.set = set;
+var identityf = function (arg) { return arg; };
+exports.identityf = identityf;
+var addf = function (a) { return function (b) { return a + b; }; };
+exports.addf = addf;
+var liftf = function (binary) { return function (a) { return function (b) { return binary(a, b); }; }; };
+exports.liftf = liftf;
+var pure = function (x, y, z) {
+    if (y === void 0) { y = 5; }
     function impure(x) {
         y++;
         z = x * y;
@@ -111,7 +235,25 @@ export const pure = (x, y = 5, z) => {
     impure(x);
     return [y, z];
 };
-export const curryb = (binary, num1) => (num2) => binary(num1, num2);
-export const curry = (func, ...outer) => (...inner) => func(...outer, ...inner);
-export const inc = (x) => x + 1;
-export const twiceUnary = (binary) => (x) => binary(x, x);
+exports.pure = pure;
+var curryb = function (binary, num1) { return function (num2) { return binary(num1, num2); }; };
+exports.curryb = curryb;
+var curry = function (func) {
+    var outer = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        outer[_i - 1] = arguments[_i];
+    }
+    return function () {
+        var inner = [];
+        for (var _i = 0; _i < arguments.length; _i++) {
+            inner[_i] = arguments[_i];
+        }
+        return func.apply(void 0, __spreadArray(__spreadArray([], outer, false), inner, false));
+    };
+};
+exports.curry = curry;
+var inc = function (x) { return x + 1; };
+exports.inc = inc;
+var twiceUnary = function (binary) { return function (x) { return binary(x, x); }; };
+exports.twiceUnary = twiceUnary;
+exports.doubl = (0, exports.twiceUnary)(function (a, b) { return a + b; });
