@@ -88,14 +88,8 @@ export const accRecurse = (func, initial = 0) => {
 }
 
 
-//export const fill = (num) => Array(num).fill(num)
-export const fill = (num: number) => {
-  let arr = []
-  while (arr.length < num) {
-    arr.push(num)
-  }
-  return arr
-}
+export const fill = (num) => Array(num).fill(num)
+
 
 const fill_2 = num => Array.from({ length: num }, () => num)
 
@@ -177,7 +171,11 @@ export const composeb = (binary1: Function, binary2: Function) => (a: number, b:
 
 export const composeTwo = (func1: Function, func2: Function) => (...args: number[]) => func2(func1(...args))
 
-export const compose = (...funcs: Function []) => (...args: number[]) => funcs.reduce((acc, func) => func(acc));
+export const compose = (...funcs) => (...args) =>
+  funcs.reduceRight((result, fn) => [fn.call(null, ...result)], args)[0];
+
+
+// export const compose = (...funcs: Function[]) => funcs.forEach(() => ) => (...args: number[]) => 1
 
 // export
 /** 
