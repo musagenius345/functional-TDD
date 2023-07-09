@@ -466,7 +466,7 @@ describe('composeb', () => {
     expect(result).toEqual(35)
   })
 })
-describe('compose', () => {
+describe('composeTwo', () => {
   it('takes any amount of functions and returns a function that takes any amount of arguments and gives them to the first function, then that result to the second function and so on', async () => {
     let f = compose(add, doubl, fill, max)
     let result = f(0, 1, 2)
