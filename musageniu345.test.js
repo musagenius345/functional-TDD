@@ -1,5 +1,5 @@
 import { describe, it, expect, test } from 'vitest'
-import { identity, addb, subb, mulb, minb, maxb, add, sub, mul, min, max, addRecurse, mulRecurse, minRecurse, maxRecurse, not, acc, accPartial, accRecurse, fill, fillRecurse, set, identityf, addf, liftf, pure, curryb, curry, inc, twiceUnary, doubl, square, twice, reverseb, reverse, composeuTwo, composeu, composeb, composeTwo, compose, limitb } from './musagenius345.ts'
+import { identity, addb, subb, mulb, minb, maxb, add, sub, mul, min, max, addRecurse, mulRecurse, minRecurse, maxRecurse, not, acc, accPartial, accRecurse, fill, fillRecurse, set, identityf, addf, liftf, pure, curryb, curry, inc, twiceUnary, doubl, square, twice, reverseb, reverse, composeuTwo, composeu, composeb, composeTwo, compose, limitb, limit } from './musagenius345.ts'
 
 // Test suite for the identity function
 describe('identity', () => {
@@ -471,5 +471,14 @@ describe('limitb', () => {
     expect(addLmtb(3, 4)).toEqual(7) // 7
     expect(addLmtb(3, 5)).toEqual(8)
     expect(addLmtb(3, 6)).toBeUndefined()
+  })
+})
+
+describe('limit', () => {
+  it('should return a function that limits, generalized for any amount of arguments', () => {
+    const addLmtb = limit(add, 2)
+    expect(addLmtb(3, 4, 5)).toEqual(12) // 7
+    expect(addLmtb(3, 6, 1, 10)).toEqual(20)
+    expect(addLmtb(3, 5, 9, 10)).toBeUndefined()
   })
 })

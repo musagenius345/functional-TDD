@@ -186,7 +186,21 @@ export const limitb = (binary: Function, lmt: number) => {
 
     return undefined
   }
-} 
+}
+
+export const limit = (binary: Function, lmt: number) => {
+  let count = 0
+
+  return (...nums: number[]) => {
+    if (count < lmt) {
+      count++
+      return binary(...nums);
+    }
+
+    return undefined
+  }
+}
+
 
 // export const compose = (...functions: Function[]) => (...args: any[]) => functions.reduce((result, fn) => [fn(...result)], args)[0]; 
 
