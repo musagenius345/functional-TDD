@@ -1,6 +1,6 @@
-export const identity = x => x;
+export const identity = (x: number) => x;
 
-export const addb = (a:number, b:number) => a + b;
+export const addb = (a: number, b: number) => a + b;
 
 export const subb = (a:number, b:number) => a - b;
 
@@ -77,13 +77,14 @@ export const accPartial = (func, start, end) => (...args) => {
   const result = func(...subset)
   const beginning = args.slice(0, start)
   const ending = args.slice(end)
+
   const accumulatedArgs = beginning.concat(result).concat(ending)
   return accumulatedArgs
 }
 
 export const accRecurse = (func, initial = 0) => {
   const recurse = (accumulator, [currentArg, ...restArgs]) =>
-    currentArg === undefined ? accumulator : recurse(func(accumulator, currentArg), restArgs)
+    currentArg === undefined ? accumulator : recurse(func(accumulator, currentArg), restArgs) 
 
   return (...args) => recurse(initial, args)
 }
@@ -170,75 +171,49 @@ export const composeu = (...funcs: Function[]) => funcs.reduce((accumulator, fun
 
 export const composeb = (binary1: Function, binary2: Function) => (a: number, b: number, c: number) => binary2(binary1(a, b), c)
 
-export const composeTwo = (func1: Function, func2: Function) => (...args: number[]) => func2(func1(...args))
+export const composeTwo = (func1: Function, func2: Function) => (...args: any[]) => func2(func1(...args))
 
-// export const compose = (...functions) => (...args) => functions.reduce((result, fn) => [fn(...result)], args)[0];
+ export const compose = (...functions: Function[]) => (...args: any[]) => functions.reduce((result, fn) => [fn(...result)], args)[0];
 
-export const compose = (...functions) => (...args) =>
-  functions.reduce(
-    (result, fn) => [fn(...result)],
-    args
-  )[0];
+export const limitb = (binary: Function, lmt: number) => {
+  let count = 0
+
+  return (a: number, b: number) => {
+    if (count < lmt) {
+      count++
+      return binary(a, b);
+    }
+
+    return undefined
+  }
+} 
+
+// export const compose = (...functions: Function[]) => (...args: any[]) => functions.reduce((result, fn) => [fn(...result)], args)[0]; 
 
 // export
-/** 
- *composeb(binary1, binary2) ⇒ function
-Write a function composeb that takes two binary functions and returns a function that calls them both
-
-Param	Type
-binary1	function
-binary2	function
-Example
-
-composeb(addb, mulb)(2, 3, 7) // (2 + 3) * 7 = 35
-
-composeTwo(func1, func2) ⇒ function
-Write a function composeTwo that takes two functions and returns a function that calls them both
-
-Param	Type
-func1	function
-func2	function
-Example
-
-composeTwo(add, square)(2, 3, 7, 5) // (2 + 3 + 7 + 5)^2 = 289
-
-compose(...funcs) ⇒ function
-Write a function compose that takes any amount of functions and returns a function that takes any amount of arguments and gives them to the first function, then that result to the second function and so on
-
-Param	Type
-...funcs	function
-Example
-
-const f = compose(add, doubl, fill, max)
-f(0, 1, 2)
-// add(0, 1, 2) -> 3
-// doubl(3) -> 6
-// fill(6) -> [ 6, 6, 6, 6, 6, 6 ]
-// max(6, 6, 6, 6, 6, 6) -> 6
-
-limitb(binary, lmt) ⇒ function
-Write a function limitb that allows a binary function to be called a limited number of times
-
-Param	Type
-binary	function
-lmt	number
-Example
-
-let addLmtb = limitb(addb, 1)
-addLmtb(3, 4) // 7
-addLmtb(3, 5) // undefined
-
-limit(func, lmt) ⇒ function
-Write a function limit that is generalized for any amount of arguments
-
-Param	Type
-func	function
-lmt	number
-Example
-
-let addLmt = limit(add, 1)
-addLmt(1, 2, 4) // 7
-addLmt(3, 5, 9, 2) // undefined
- *
- *
- * */
+//limitb(binary, lmt) ⇒ function
+// Write a function limitb that allows a binary function to be called a limited number of times
+//
+// Param	Type
+// binary	function
+// lmt	number
+// Example
+//
+// let addLmtb = limitb(addb, 1)
+// addLmtb(3, 4) // 7
+// addLmtb(3, 5) // undefined
+//
+// limit(func, lmt) ⇒ function
+// Write a function limit that is generalized for any amount of arguments
+//
+// Param	Type
+// func	function
+// lmt	number
+// Example
+//
+// let addLmt = limit(add, 1)
+// addLmt(1, 2, 4) // 7
+// addLmt(3, 5, 9, 2) // undefined
+//  *
+//  *
+//  * */
