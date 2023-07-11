@@ -10,15 +10,16 @@ export const minb = (a, b) => Math.min(a, b);
 
 export const maxb = (a, b) => Math.max(a, b);
 
-export const add = (...nums) => nums.reduce((sum, num) => sum + num, 0)
+// export const add = (...nums) => nums.reduce((sum, num) => sum + num, 0)
+//
+export const add = (...nums) => nums.reduce((sum, num) => sum + num, 0);
 
 export const sub = (...nums) => nums.reduce((diff, num) => diff - num)
 
 export const mul = (...nums) => nums.reduce((product, num) => product * num);
 
 export const min = (...nums) => Math.min(...nums);
-
-export const max = (...nums) => Math.max(...nums);
+export const max = (...nums) => Math.max(...nums.flat(Infinity))
 
 export const addRecurse = (...nums) => {
   if (nums.length === 0) {
@@ -171,9 +172,13 @@ export const composeb = (binary1: Function, binary2: Function) => (a: number, b:
 
 export const composeTwo = (func1: Function, func2: Function) => (...args: number[]) => func2(func1(...args))
 
-export const compose = (...functions: Function[]) => (...args: number[]) => functions.reduceRight((result, fn) => fn(result), args);
+// export const compose = (...functions) => (...args) => functions.reduce((result, fn) => [fn(...result)], args)[0];
 
-// export const compose = (...funcs: Function[]) => funcs.forEach(() => ) => (...args: number[]) => 1
+export const compose = (...functions) => (...args) =>
+  functions.reduce(
+    (result, fn) => [fn(...result)],
+    args
+  )[0];
 
 // export
 /** 
