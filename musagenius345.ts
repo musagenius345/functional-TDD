@@ -201,7 +201,23 @@ export const limit = (binary: Function, lmt: number) => {
   }
 }
 
+export function* genFrom(x: number = 0): Generator<number, void, unknown> {
+  //
+  while(true){
+   yield x++ 
+  }
+}
 
+
+export function genTo(gen: Function, lmt: number) { 
+  return function* (x: number) { 
+  let count = 0
+  while(count < lmt){
+    count++
+    yield gen()
+   }
+  }
+}
 // export const compose = (...functions: Function[]) => (...args: any[]) => functions.reduce((result, fn) => [fn(...result)], args)[0]; 
 
 // export

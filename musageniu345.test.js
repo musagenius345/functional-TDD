@@ -1,5 +1,5 @@
 import { describe, it, expect, test } from 'vitest'
-import { identity, addb, subb, mulb, minb, maxb, add, sub, mul, min, max, addRecurse, mulRecurse, minRecurse, maxRecurse, not, acc, accPartial, accRecurse, fill, fillRecurse, set, identityf, addf, liftf, pure, curryb, curry, inc, twiceUnary, doubl, square, twice, reverseb, reverse, composeuTwo, composeu, composeb, composeTwo, compose, limitb, limit } from './musagenius345.ts'
+import { identity, addb, subb, mulb, minb, maxb, add, sub, mul, min, max, addRecurse, mulRecurse, minRecurse, maxRecurse, not, acc, accPartial, accRecurse, fill, fillRecurse, set, identityf, addf, liftf, pure, curryb, curry, inc, twiceUnary, doubl, square, twice, reverseb, reverse, composeuTwo, composeu, composeb, composeTwo, compose, limitb, limit, genFrom, genTo } from './musagenius345.ts'
 
 // Test suite for the identity function
 describe('identity', () => {
@@ -480,5 +480,38 @@ describe('limit', () => {
     expect(addLmtb(3, 4, 5)).toEqual(12) // 7
     expect(addLmtb(3, 6, 1, 10)).toEqual(20)
     expect(addLmtb(3, 5, 9, 10)).toBeUndefined()
+  })
+})
+
+describe('genFrom', () => {
+  it('produces a generator that will produces a series of values. Follows the iterator protocol for the returned format.', () => {
+    const index = genFrom()
+    expect(index.next().value).toBe(0)
+    expect(index.next().value).toBe(1)
+    expect(index.next().value).toBe(2)
+  })
+
+  it('handles any number', async () => {
+    const index = genFrom(-3)
+    expect(index.next().value).toBe(-3)
+    expect(index.next().value).toBe(-2)
+    expect(index.next().value).toBe(-1)
+    expect(index.next().value).toBe(0)
+  })
+})
+
+describe('genTo', () => {
+  it('produces a generator that will produces a series of values. Follows the iterator protocol for the returned format.', () => {
+    const index = genTo(genFrom(1), 3)
+    expect(index.next().value).toBe(1)
+    // expect(index.next().value).toBe(1)
+    // expect(index.next().value).toBe(2)
+  })
+
+  it('handles any number', async () => {
+    const index = genTo(genFrom(-3), 2)
+    expect(index.next().value).toBe(-3)
+    // expect(index.next().value).toBe(-2)
+    // expect(index.next().value).toBeUndefined()
   })
 })
