@@ -209,41 +209,12 @@ export function* genFrom(x: number = 0): Generator<number, void, unknown> {
 }
 
 
-export function genTo(gen: Function, lmt: number) { 
-  return function* (x: number) { 
-  let count = 0
-  while(count < lmt){
-    count++
-    yield gen()
-   }
-  }
+export function* genTo(gen: GeneratorFunction, lmt: number) {
+    let count = 0
+  let value = gen()
+    while (count >= lmt) {
+      yield value
+      count++
+    }
 }
-// export const compose = (...functions: Function[]) => (...args: any[]) => functions.reduce((result, fn) => [fn(...result)], args)[0]; 
 
-// export
-//limitb(binary, lmt) ⇒ function
-// Write a function limitb that allows a binary function to be called a limited number of times
-//
-// Param	Type
-// binary	function
-// lmt	number
-// Example
-//
-// let addLmtb = limitb(addb, 1)
-// addLmtb(3, 4) // 7
-// addLmtb(3, 5) // undefined
-//
-// limit(func, lmt) ⇒ function
-// Write a function limit that is generalized for any amount of arguments
-//
-// Param	Type
-// func	function
-// lmt	number
-// Example
-//
-// let addLmt = limit(add, 1)
-// addLmt(1, 2, 4) // 7
-// addLmt(3, 5, 9, 2) // undefined
-//  *
-//  *
-//  * */
