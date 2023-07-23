@@ -14,3 +14,10 @@ export const insertionSort = (arr) => {
   }
     return arr
 }
+
+
+
+
+let result = insertionSort([55, 22, 11, 8])
+
+console.log(result);

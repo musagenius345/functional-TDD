@@ -2,7 +2,7 @@ export const identity = (x: number) => x;
 
 export const addb = (a: number, b: number) => a + b;
 
-export const subb = (a:number, b:number) => a - b;
+export const subb = (a: number, b: number) => a - b;
 
 export const mulb = (a, b) => a * b;
 
@@ -84,7 +84,7 @@ export const accPartial = (func, start, end) => (...args) => {
 
 export const accRecurse = (func, initial = 0) => {
   const recurse = (accumulator, [currentArg, ...restArgs]) =>
-    currentArg === undefined ? accumulator : recurse(func(accumulator, currentArg), restArgs) 
+    currentArg === undefined ? accumulator : recurse(func(accumulator, currentArg), restArgs)
 
   return (...args) => recurse(initial, args)
 }
@@ -134,10 +134,10 @@ export const identityf = (arg) => arg
 
 export const addf = (a: number) => (b: number) => a + b
 
-export const liftf = (binary:Function) => (a: number) => (b: number) => binary(a, b)
+export const liftf = (binary: Function) => (a: number) => (b: number) => binary(a, b)
 
-export const pure = (x: number, y: number=5, z:number) => {
-  function impure(x:number){
+export const pure = (x: number, y: number = 5, z: number) => {
+  function impure(x: number) {
     y++
     z = x * y
 
@@ -147,21 +147,21 @@ export const pure = (x: number, y: number=5, z:number) => {
   return [y, z]
 }
 
-export const curryb = (binary: Function, num1: number) => (num2:number) => binary(num1, num2)
+export const curryb = (binary: Function, num1: number) => (num2: number) => binary(num1, num2)
 
 export const curry = (func: Function, ...outer: number[]) => (...inner: number[]) => func(...outer, ...inner)
 
 export const inc = (x: number) => x + 1
 
-export const twiceUnary = (binary: Function) => (x: number)  => binary(x, x)
+export const twiceUnary = (binary: Function) => (x: number) => binary(x, x)
 
 export const doubl = twiceUnary((a: number, b: number) => a + b);
 
-export const square = (num: number) =>  twiceUnary(mulb)(num)
+export const square = (num: number) => twiceUnary(mulb)(num)
 
 export const twice = (func: Function) => (...num: number[]) => (func(...num)) * 2
 
-export const reverseb = (func: Function) => (a:number, b:number) => func(b, a)
+export const reverseb = (func: Function) => (a: number, b: number) => func(b, a)
 
 export const reverse = (func: Function) => (...args: number[]) => func(...args.reverse())
 
@@ -173,7 +173,7 @@ export const composeb = (binary1: Function, binary2: Function) => (a: number, b:
 
 export const composeTwo = (func1: Function, func2: Function) => (...args: any[]) => func2(func1(...args))
 
- export const compose = (...functions: Function[]) => (...args: any[]) => functions.reduce((result, fn) => [fn(...result)], args)[0];
+export const compose = (...functions: Function[]) => (...args: any[]) => functions.reduce((result, fn) => [fn(...result)], args)[0];
 
 export const limitb = (binary: Function, lmt: number) => {
   let count = 0
@@ -201,20 +201,21 @@ export const limit = (binary: Function, lmt: number) => {
   }
 }
 
-export function* genFrom(x: number = 0): Generator<number, void, unknown> {
+export function* genFrom(x: number = 0): Generator < number, void, unknown > {
   //
-  while(true){
-   yield x++ 
+  while (true) {
+    yield x++
   }
 }
 
 
-export function* genTo(gen: GeneratorFunction, lmt: number) {
-    let count = 0
+export const genTo = (gen: GeneratorFunction, lmt: number) => {
+  let count = 0
   let value = gen()
-    while (count >= lmt) {
-      yield value
-      count++
-    }
-}
 
+  while (count >= lmt) {
+    return value
+    count++
+
+  }
+}
