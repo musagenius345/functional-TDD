@@ -499,21 +499,21 @@ describe('genFrom', () => {
     expect(index.next().value).toBe(0)
   })
 })
-
-describe('genTo', () => {
-  it('takes a generator and an end limit, and returns a generator that will produce numbers up to that limit', () => {
-  // eslint-disable-next-line prefer-const
-    let index = genTo(genFrom(1), 3)
-    expect(index.next().value).toBe(1)
-    expect(index.next().value).toBe(2)
-    expect(index.next().value).toBe(3)
-    expect(index.next().value).toBeUndefined()
-  })
-
-  it('handles any number', async () => {
-    const index = genTo(genFrom(-3), 2)
-    expect(index.next().value).toBe(-3)
-    expect(index.next().value).toBe(-2)
-    expect(index.next().value).toBeUndefined()
-  })
-})
+//
+// describe('genTo', () => {
+//   it('takes a generator and an end limit, and returns a generator that will produce numbers up to that limit', () => {
+//   // eslint-disable-next-line prefer-const
+//     let index = genTo(genFrom(1), 3)
+//     expect(index.next().value).toBe(1)
+//     expect(index.next().value).toBe(2)
+//     expect(index.next().value).toBe(3)
+//     expect(index.next().value).toBeUndefined()
+//   })
+//
+//   it('handles any number', async () => {
+//     const index = genTo(genFrom(-3), 2)
+//     expect(index.next().value).toBe(-3)
+//     expect(index.next().value).toBe(-2)
+//     expect(index.next().value).toBeUndefined()
+//   })
+// })

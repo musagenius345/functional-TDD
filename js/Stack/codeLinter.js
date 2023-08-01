@@ -1,37 +1,50 @@
 import { Stack } from './Stack.js'
-class Linter {
-  stack = new Stack()
+export class Linter { 
+   stack = new Stack();
+ 
+
   lint(text) {
-    text.forEach((char) => {
-      // If character is opening brace
-      if (isOpeningBrace) {
-        // Push onto the stack
-        stack.push(char)
-      } // If character is closing brace
-      else if (isClosingBrace) {
-        //Pop from stack
-        poppedOpeningBrace = stack.pop()
-
-        /* If the stack is empty
-         so what was popped was null
-         It means that the opening brace 
-         is missing:
-        */
+    for (const char of text) {
+      if (this.isOpenBrace(char)) {
+        this.stack.push(char);
+      } else if (this.isClosingBrace(char)) {
+        const poppedOpeningBrace = this.stack.pop();
         if (!poppedOpeningBrace) {
-          return `${char} does not have opening brace`
+          return `${char} doesn't have an opening brace`;
         }
-
-        /*
-         If the popped opening brace doesn't match the
-         current closing brace, we produce an error:
-          */
-        if (isNotAMatch(poppedOpeningBrace, char)) {
-          return `${char} has mismatched opening brace`
+        if (this.isNotAMatch(poppedOpeningBrace, char)) {
+          return `${char} has a mismatched opening brace`;
         }
       }
-    })
+    }
 
-    if ( stack )
+    if (!this.stack.isEmpty()) {
+      return `${this.stack.peek()} does not have a closing brace`;
+    }
 
+    return true;
+  }
+
+  isOpenBrace(char) {
+    return ["(", "[", "{"].includes(char);
+  }
+
+  isClosingBrace(char) {
+    return [")", "]", "}"].includes(char);
+  }
+
+  isNotAMatch(openingBrace, closingBrace) {
+    const matchingBraces = new Map()
+    matchingBraces.set('(', ')')
+    matchingBraces.set('{', '}')
+    matchingBraces.set('[', ']')
+
+    return closingBrace !== matchingBraces.get(openingBrace);
   }
 }
+
+// // Example usage:
+// const linter = new Linter();
+// const text = "function() { console.log('Hello, world!');";
+// console.log(linter.lint(text)); // Output: { does not have a closing brace
+//
