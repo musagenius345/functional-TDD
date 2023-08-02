@@ -13,8 +13,8 @@ class PrinterManager {
 
   run() {
 
-    while (this.queue.front()) {
-      this.print(this.queue.dequeue)
+    while (this.queue.front()){
+      this.print(this.queue.dequeue())
     }
   }
 
