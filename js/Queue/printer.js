@@ -1,9 +1,7 @@
 import { Queue } from "./Queue.js";
 
 class PrinterManager {
-  constructor() {
-   this.queue = new Queue()
-  }
+   queue = new Queue()
 
 
   printJob(document) {
@@ -14,7 +12,8 @@ class PrinterManager {
   run() {
 
     while (this.queue.front()){
-      this.print(this.queue.dequeue())
+      this.print(this.queue.front())
+      this.queue.dequeue()
     }
   }
 
@@ -26,9 +25,10 @@ class PrinterManager {
 }
 
 const printManager = new PrinterManager()
-printManager.printJob('First Document')
-printManager.printJob('Second Document')
-printManager.printJob('Third Document')
-
+// printManager.printJob('First Document')
+// printManager.printJob('Second Document')
+// printManager.printJob('Third Document')
+// printManager.printJob('Fourth Document')
+//
 printManager.run()
 
