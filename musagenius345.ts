@@ -201,7 +201,7 @@ export const limit = (binary: Function, lmt: number) => {
   }
 }
 
-export function* genFrom(x: number = 0): Generator < number, void, unknown > {
+export function* genFrom(x: number = 0): Generator<number, void, unknown> {
   //
   while (true) {
     yield x++
@@ -209,13 +209,13 @@ export function* genFrom(x: number = 0): Generator < number, void, unknown > {
 }
 
 
-export const genTo = (gen: GeneratorFunction, lmt: number) => {
+export function* genTo(gen: GeneratorFunction, lmt: number) {
   let count = 0
-  let value = gen()
-
-  while (count >= lmt) {
-    return value
+  for (const value of gen()) {
+    if (count >= lmt) return;
+    yield value
     count++
-
   }
+
 }
+
