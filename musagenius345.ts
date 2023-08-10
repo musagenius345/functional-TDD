@@ -1,4 +1,4 @@
-export const identity = (x: number) => x;
+export const identity = (x: number): number => x;
 
 export const addb = (a: number, b: number) => a + b;
 

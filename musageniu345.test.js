@@ -1,4 +1,4 @@
-import { describe, it, expect, test } from '/data/data/com.termux/files/home/.local/share/pnpm/global/5/node_modules/vitest'
+// import { describe, it, expect, test } from '/data/data/com.termux/files/home/.local/share/pnpm/global/5/node_modules/vitest'
 import { identity, addb, subb, mulb, minb, maxb, add, sub, mul, min, max, addRecurse, mulRecurse, minRecurse, maxRecurse, not, acc, accPartial, accRecurse, fill, fillRecurse, set, identityf, addf, liftf, pure, curryb, curry, inc, twiceUnary, doubl, square, twice, reverseb, reverse, composeuTwo, composeu, composeb, composeTwo, compose, limitb, limit, genFrom, genTo } from './musagenius345.ts'
 
 // Test suite for the identity function

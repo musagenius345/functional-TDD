@@ -1,6 +1,6 @@
-const arr2 = [1,2,3,4,[5,6,[7,8]]]
+// const arr2 = [1,2,3,4,[5,6,[7,8]]]
 
-function flatten(arr){
+export function flatten(arr: any[]){
   for (let i = 0; i < arr.length; i++) {
     const element = arr[i]
     if(Array.isArray(element)){

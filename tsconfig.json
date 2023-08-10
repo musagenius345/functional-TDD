@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
+    "types": ["vitest/importMeta","vitest/globals"],
     "target": "esnext",
     "preserveConstEnums": true,
     "module": "ESNext"
   },
 
-  "include": ["**/*.ts"],
-  "exclude": ["**/*.test.ts"]
+  "include": ["**/*.ts"]
+  // "exclude": ["**/*.test.ts"]
 }
 
