@@ -8,7 +8,7 @@ export const mulb = (a, b) => a * b;
 
 export const minb = (a, b) => Math.min(a, b);
 
-export const maxb = (a, b) => Math.max(a, b);
+export const maxb = (a: number, b: number) => Math.max(a, b);
 
 // export const add = (...nums) => nums.reduce((sum, num) => sum + num, 0)
 //
@@ -209,13 +209,28 @@ export function* genFrom(x: number = 0): Generator<number, void, unknown> {
 }
 
 
-export function* genTo(gen: GeneratorFunction, lmt: number) {
-  let count = 0
-  for (const value of gen()) {
-    if (count >= lmt) return;
+export function* genTo<T>(gen: Generator<T>, lmt: number) {
+  let count = 0;
+  for (const value of gen) {
+    if (count >= lmt) { return }
     yield value
-    count++
+    count++;
   }
-
 }
+export function* genFromStart(start: number, end: number) {
+  let currentValue = start
+
+  while (currentValue <= end) {
+    yield currentValue
+  }
+}
+
+
+
+
+
+ 
+
+
+
 

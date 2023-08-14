@@ -517,3 +517,15 @@ describe('genTo', () => {
     expect(index.next().value).toBeUndefined()
   })
 })
+
+
+describe('genFromTo', () => {
+  it('generates values in the specified range', () => {
+    const indexInRange = genFromTo(0, 3);
+    expect(indexInRange.next().value).toBe(0);
+    expect(indexInRange.next().value).toBe(1);
+    expect(indexInRange.next().value).toBe(2);
+    expect(indexInRange.next().value).toBe(undefined);
+    // You can add more test cases here
+  });
+});
