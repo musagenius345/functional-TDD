@@ -11,7 +11,6 @@ const max = (arr: number[], num = 0) => {
     return arr[0]
   }
 
-
   return maxRemainder
 }
 //
