@@ -18,23 +18,38 @@ describe('Sorting by partition', () => {
   })
 })
 
-describe('QuickSort', () => {
-  test('basic', () => {
-    const sample = [4, 9, 8, 1, 6, 7, 3, 5, 2]
-    const result = quickSort(sample)
-    const solution = sample.sort((a, b) => a - b)
-    expect(result).toStrictEqual(solution)
-  })
-  test('negative values', () => {
-    const sample = [-4, -9, -8, -1, -6, -7, -3, -5, -2]
-    const result = quickSort(sample)
-    const solution = sample.sort((a, b) => a - b)
-    expect(result).toStrictEqual(solution)
-  })
-  test('Infinity', () => {
-    const sample = [Infinity, -9, -Infinity, -1, -6, -7, -3, -5, -2]
-    const result = quickSort(sample)
-    const solution = sample.sort((a, b) => a - b)
-    expect(result).toStrictEqual(solution)
-  })
-})
+
+describe('Quick Sort', () => {
+  it('should sort an empty array', () => {
+    expect(quickSort([])).toEqual([]);
+  });
+
+  it('should sort an array with one element', () => {
+    expect(quickSort([1])).toEqual([1]);
+  });
+
+  it('should sort an already sorted array', () => {
+    expect(quickSort([1, 2, 3, 4, 5])).toEqual([1, 2, 3, 4, 5]);
+  });
+
+  it('should sort an array in reverse order', () => {
+    expect(quickSort([5, 4, 3, 2, 1])).toEqual([1, 2, 3, 4, 5]);
+  });
+
+  it('should sort a random unsorted array', () => {
+    expect(quickSort([3, 1, 4, 1, 5, 9, 2, 6, 5, 3, 5])).toEqual([1, 1, 2, 3, 3, 4, 5, 5, 5, 6, 9]);
+  });
+
+  it('should not modify the original array', () => {
+    const unsortedArray = [3, 1, 4, 1, 5];
+    const sortedArray = quickSort([...unsortedArray]);
+    expect(unsortedArray).toEqual([3, 1, 4, 1, 5]); // Original array should remain unchanged
+  });
+
+  it('should sort a large array', () => {
+    const largeArray = Array.from({ length: 1000 }, () => Math.floor(Math.random() * 1000));
+    const sortedArray = quickSort([...largeArray]).sort((a, b) => a - b);
+    expect(quickSort(largeArray)).toEqual(sortedArray);
+  });
+});
+

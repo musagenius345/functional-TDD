@@ -1,6 +1,3 @@
-/**
- * @param {Array} arr - Array to be sorted
- * */
 export function quickSort(arr) {
   // Base case: an array with 0 or 1 element is already sorted
   if (arr.length <= 1) {
