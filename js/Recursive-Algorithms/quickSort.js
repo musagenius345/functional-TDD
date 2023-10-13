@@ -1,3 +1,7 @@
+/**
+ * Quick sort Implementation
+ * @param {Array} arr 
+ * */
 export function quickSort(arr) {
   // Base case: an array with 0 or 1 element is already sorted
   if (arr.length <= 1) {
@@ -49,5 +53,5 @@ export function quickSort(arr) {
   return [...leftPartition, arr[leftIndex], ...rightPartition];
 }
 
-const result = quickSort([4, 9, 8, 1, 6, 7, 3, 5, 2]);
-console.log(result);
+// const result = quickSort([4, 9, 8, 1, 6, 7, 3, 5, 2]);
+// console.log(result);
