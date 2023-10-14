@@ -30,4 +30,27 @@ export function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNod
 
 
 
+export function addTwoNumbersRecursive(
+  l1: ListNode | null,
+  l2: ListNode | null,
+  carry: number = 0
+): ListNode | null {
+  if (!l1 && !l2 && !carry) return null;
+
+  const l1Val = l1 ? l1.val : 0;
+  const l2Val = l2 ? l2.val : 0;
+  const total = l1Val + l2Val + carry;
+
+  const newCarry = Math.floor(total / 10);
+  const sumDigit = total % 10;
+
+  const newNode = new ListNode(sumDigit);
+  newNode.next = addTwoNumbersRecursive(l1?.next, l2?.next, newCarry);
+  
+  if (newCarry > 0 && !newNode.next) {
+    newNode.next = new ListNode(newCarry);
+  }
+
+  return newNode;
+}
 
