@@ -20,4 +20,4 @@ export const insertionSort = (arr) => {
 
 let result = insertionSort([55, 22, 11, 8])
 
-console.log(result);
+// console.log(result);
