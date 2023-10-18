@@ -1,4 +1,4 @@
-export const bubbleSort = (arr) => {
+export const bubbleSort = (arr: number[]) => {
   if (arr.length === 0) {
     return []
   } else if(arr.length === 1){

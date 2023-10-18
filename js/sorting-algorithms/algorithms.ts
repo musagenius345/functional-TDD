@@ -1,4 +1,3 @@
-export { binarySearch } from './binarySearch'
 export { linearSearch } from './linearSearch'
 export { bubbleSort } from './bubbleSort.js'
 export { selectionSort } from './selectionSort.js'
