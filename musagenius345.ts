@@ -14,12 +14,12 @@ export const maxb = (a: number, b: number) => Math.max(a, b);
 //
 export const add = (...nums) => nums.reduce((sum, num) => sum + num, 0);
 
-export const sub = (...nums) => nums.reduce((diff, num) => diff - num)
+export const sub = (...nums) => nums.reduce((diff, num) => diff - num);
 
 export const mul = (...nums) => nums.reduce((product, num) => product * num);
 
 export const min = (...nums) => Math.min(...nums);
-export const max = (...nums) => Math.max(...nums.flat(Infinity))
+export const max = (...nums) => Math.max(...nums.flat(Infinity));
 
 export const addRecurse = (...nums) => {
   if (nums.length === 0) {
@@ -34,24 +34,23 @@ export const mulRecurse = (...nums) => {
   if (nums.length === 0) {
     return 0;
   } else if (nums.length === 1) {
-    return nums[0]
+    return nums[0];
   } else {
     const [first, ...rest] = nums;
     return first * mulRecurse(...rest);
   }
-}
-
+};
 
 export const minRecurse = (...nums) => {
   if (nums.length === 0) {
-    return NaN
+    return NaN;
   }
 
   const [first, ...rest] = nums;
   const minRest = rest.length > 0 ? minRecurse(...rest) : NaN;
 
   return isNaN(minRest) || first < minRest ? first : minRest;
-}
+};
 
 export const maxRecurse = (...nums) => {
   if (nums.length === 0) {
@@ -65,35 +64,40 @@ export const maxRecurse = (...nums) => {
   }
 };
 
+export const not =
+  (func) =>
+  (...args) =>
+    !func(...args);
 
+export const acc =
+  (func, intial = 0) =>
+  (...args) =>
+    args.reduce(func, intial);
 
+export const accPartial =
+  (func, start, end) =>
+  (...args) => {
+    const subset = args.slice(start, end);
+    const result = func(...subset);
+    const beginning = args.slice(0, start);
+    const ending = args.slice(end);
 
-export const not = (func) => (...args) => !func(...args)
-
-export const acc = (func, intial = 0) => (...args) => args.reduce(func, intial)
-
-export const accPartial = (func, start, end) => (...args) => {
-  const subset = args.slice(start, end)
-  const result = func(...subset)
-  const beginning = args.slice(0, start)
-  const ending = args.slice(end)
-
-  const accumulatedArgs = beginning.concat(result).concat(ending)
-  return accumulatedArgs
-}
+    const accumulatedArgs = beginning.concat(result).concat(ending);
+    return accumulatedArgs;
+  };
 
 export const accRecurse = (func, initial = 0) => {
   const recurse = (accumulator, [currentArg, ...restArgs]) =>
-    currentArg === undefined ? accumulator : recurse(func(accumulator, currentArg), restArgs)
+    currentArg === undefined
+      ? accumulator
+      : recurse(func(accumulator, currentArg), restArgs);
 
-  return (...args) => recurse(initial, args)
-}
+  return (...args) => recurse(initial, args);
+};
 
+const fill2 = (num) => Array(num).fill(num);
 
-const fill2 = (num) => Array(num).fill(num)
-
-
-export const fill = num => Array.from({ length: num }, () => num)
+export const fill = (num) => Array.from({ length: num }, () => num);
 
 function fillRecurse_2(num, array = []) {
   if (array.length >= num) {
@@ -128,109 +132,122 @@ export function fillRecurse(num, current = num, array = []) {
   return fillRecurse(num, current - 1, [...array, num]);
 }
 
-export const set = (...args) => [...new Set(args)]
+export const set = (...args) => [...new Set(args)];
 
-export const identityf = (arg) => arg
+export const identityf = (arg) => arg;
 
-export const addf = (a: number) => (b: number) => a + b
+export const addf = (a: number) => (b: number) => a + b;
 
-export const liftf = (binary: Function) => (a: number) => (b: number) => binary(a, b)
+export const liftf = (binary: Function) => (a: number) => (b: number) =>
+  binary(a, b);
 
 export const pure = (x: number, y: number = 5, z: number) => {
   function impure(x: number) {
-    y++
-    z = x * y
-
+    y++;
+    z = x * y;
   }
 
-  impure(x)
-  return [y, z]
-}
+  impure(x);
+  return [y, z];
+};
 
-export const curryb = (binary: Function, num1: number) => (num2: number) => binary(num1, num2)
+export const curryb = (binary: Function, num1: number) => (num2: number) =>
+  binary(num1, num2);
 
-export const curry = (func: Function, ...outer: number[]) => (...inner: number[]) => func(...outer, ...inner)
+export const curry =
+  (func: Function, ...outer: number[]) =>
+  (...inner: number[]) =>
+    func(...outer, ...inner);
 
-export const inc = (x: number) => x + 1
+export const inc = (x: number) => x + 1;
 
-export const twiceUnary = (binary: Function) => (x: number) => binary(x, x)
+export const twiceUnary = (binary: Function) => (x: number) => binary(x, x);
 
 export const doubl = twiceUnary((a: number, b: number) => a + b);
 
-export const square = (num: number) => twiceUnary(mulb)(num)
+export const square = (num: number) => twiceUnary(mulb)(num);
 
-export const twice = (func: Function) => (...num: number[]) => (func(...num)) * 2
+export const twice =
+  (func: Function) =>
+  (...num: number[]) =>
+    func(...num) * 2;
 
-export const reverseb = (func: Function) => (a: number, b: number) => func(b, a)
+export const reverseb = (func: Function) => (a: number, b: number) =>
+  func(b, a);
 
-export const reverse = (func: Function) => (...args: number[]) => func(...args.reverse())
+export const reverse =
+  (func: Function) =>
+  (...args: number[]) =>
+    func(...args.reverse());
 
-export const composeuTwo = (unary1: Function, unary2: Function) => (arg: number) => unary2(unary1(arg))
+export const composeuTwo =
+  (unary1: Function, unary2: Function) => (arg: number) =>
+    unary2(unary1(arg));
 
-export const composeu = (...funcs: Function[]) => funcs.reduce((accumulator, func) => (x: number) => func(accumulator(x)))
+export const composeu = (...funcs: Function[]) =>
+  funcs.reduce((accumulator, func) => (x: number) => func(accumulator(x)));
 
-export const composeb = (binary1: Function, binary2: Function) => (a: number, b: number, c: number) => binary2(binary1(a, b), c)
+export const composeb =
+  (binary1: Function, binary2: Function) => (a: number, b: number, c: number) =>
+    binary2(binary1(a, b), c);
 
-export const composeTwo = (func1: Function, func2: Function) => (...args: any[]) => func2(func1(...args))
+export const composeTwo =
+  (func1: Function, func2: Function) =>
+  (...args: any[]) =>
+    func2(func1(...args));
 
-export const compose = (...functions: Function[]) => (...args: any[]) => functions.reduce((result, fn) => [fn(...result)], args)[0];
+export const compose =
+  (...functions: Function[]) =>
+  (...args: any[]) =>
+    functions.reduce((result, fn) => [fn(...result)], args)[0];
 
 export const limitb = (binary: Function, lmt: number) => {
-  let count = 0
+  let count = 0;
 
   return (a: number, b: number) => {
     if (count < lmt) {
-      count++
+      count++;
       return binary(a, b);
     }
 
-    return undefined
-  }
-}
+    return undefined;
+  };
+};
 
 export const limit = (binary: Function, lmt: number) => {
-  let count = 0
+  let count = 0;
 
   return (...nums: number[]) => {
     if (count < lmt) {
-      count++
+      count++;
       return binary(...nums);
     }
 
-    return undefined
-  }
-}
+    return undefined;
+  };
+};
 
 export function* genFrom(x: number = 0): Generator<number, void, unknown> {
   //
   while (true) {
-    yield x++
+    yield x++;
   }
 }
-
 
 export function* genTo<T>(gen: Generator<T>, lmt: number) {
   let count = 0;
   for (const value of gen) {
-    if (count >= lmt) { return }
-    yield value
+    if (count >= lmt) {
+      return;
+    }
+    yield value;
     count++;
   }
 }
 export function* genFromStart(start: number, end: number) {
-  let currentValue = start
+  let currentValue = start;
 
   while (currentValue <= end) {
-    yield currentValue
+    yield currentValue;
   }
 }
-
-
-
-
-
- 
-
-
-
-

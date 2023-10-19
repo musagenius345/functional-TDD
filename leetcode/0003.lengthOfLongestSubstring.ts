@@ -34,3 +34,22 @@ export function lengthOfLongestSubstringMap(s: string): number {
 
     return maxLength;
 }
+
+
+export function lengthOfLongestSubstringSet(s: number[] | any[]): number{
+  let letterSet = new Set()
+  let left: number = 0
+  let maxLength: number = 0
+  
+  for (let right = 0; right < s.length; right++) {
+    if(letterSet.has(s[right])){
+      letterSet.delete(s[left])
+      left++
+    } else{
+      letterSet.add(s[right])
+      maxLength = Math.max(maxLength, right - left + 1)
+    }
+  }
+  
+  return maxLength
+}

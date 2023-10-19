@@ -1,4 +1,4 @@
-import { addTwoNumbers, ListNode, addTwoNumbersRecursive, lengthOfLongestSubstringMap, lengthOfLongestSubstring } from './index.js';
+import { addTwoNumbers, ListNode, addTwoNumbersRecursive, lengthOfLongestSubstringSet, lengthOfLongestSubstringMap, lengthOfLongestSubstring } from './index.js';
 
 describe('addTwoNumbers', () => {
   it('adds two numbers correctly', () => {
@@ -99,3 +99,4 @@ function lengthOfLongestSubstringTest(func, name) {
 
 lengthOfLongestSubstringTest(lengthOfLongestSubstringMap, 'lengthOfLongestSubstringMap')
 lengthOfLongestSubstringTest(lengthOfLongestSubstring, 'lengthOfLongestSubstring')
+lengthOfLongestSubstringTest(lengthOfLongestSubstringSet, 'lengthOfLongestSubstringconditiona')
