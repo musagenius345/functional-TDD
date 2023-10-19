@@ -1,39 +1,38 @@
 export class Queue {
   constructor() {
-    this.items = []
+    this.items = [];
   }
 
   // Add an element to the back of the queue
   enqueue(item) {
-    this.items.push(item)
+    this.items.push(item);
   }
 
   // Remove the front element of the queue (dequeue)
   dequeue() {
     if (this.isEmpty()) {
-      return new Error('Queue underflow')
+      return new Error("Queue underflow");
     }
 
-    this.items.shift()
+    this.items.shift();
   }
 
   // Return the front element without removing it
   front() {
     if (this.isEmpty()) {
-      return null
+      return null;
     }
 
-    return this.items[0]
+    return this.items[0];
   }
   size() {
-    return this.items.length
+    return this.items.length;
   }
   isEmpty() {
-    return this.items.length === 0
+    return this.items.length === 0;
   }
 
   clear() {
-    this.items = []
+    this.items = [];
   }
-
 }

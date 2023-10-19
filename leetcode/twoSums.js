@@ -6,37 +6,33 @@ You may assume that each input would have exactly one solution, and you may not 
 You can return the answer in any order.
 */
 
-
-
-
 /**
  * @param {number[]} nums
  * @param {number} target
  * @return {number[]}
  */
-var twoSum = function(nums, target) {
+var twoSum = function (nums, target) {
   for (let i = 0; i < nums.length - 1; i++) {
     for (let j = i + 1; j < nums.length; j++) {
       if (nums[i] + nums[j] === target) {
-        return [i, j]
+        return [i, j];
       }
     }
   }
 };
 
+function twoSumsOptimized(nums, target) {
+  const numIndices = new Map();
 
-function twoSumsOptimized(nums, target){
-const numIndices = new Map();
+  for (let i = 0; i < nums.length; i++) {
+    const complement = target - nums[i];
 
-for (let i = 0; i < nums.length; i++) {
-  const complement = target - nums[i];
+    if (numIndices.has(complement)) {
+      return [numIndices.get(complement), i];
+    }
 
-  if (numIndices.has(complement)) {
-    return [numIndices.get(complement), i];
+    numIndices.set(nums[i], i);
   }
 
-  numIndices.set(nums[i], i);
-}
-
-return [];
+  return [];
 }

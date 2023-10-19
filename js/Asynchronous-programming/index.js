@@ -16,11 +16,11 @@ function sendMessageToFriend() {
 console.log("You: Sending a message to your friend...");
 
 sendMessageToFriend()
-  .then(response => {
+  .then((response) => {
     console.log(response);
     console.log("You: Great! Let's make plans for the weekend.");
   })
-  .catch(error => {
+  .catch((error) => {
     console.log(error);
     console.log("You: Okay, no worries. Talk to you later!");
   });

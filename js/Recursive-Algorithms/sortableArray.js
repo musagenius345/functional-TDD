@@ -47,4 +47,3 @@ export class SortableArray {
     return this.array;
   }
 }
-

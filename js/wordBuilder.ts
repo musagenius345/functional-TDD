@@ -12,38 +12,30 @@
 //     return collection
 // }
 
-
-
 // //hof
 
 // const wordBuilder2 = arr => {
 //   let collection = []
-  
-  
-// }
 
+// }
 
 function wordBuilder(arr) {
   let collection = [];
 
   arr.forEach((element, i) => {
     const concatenatedWords = arr
-    .map((word, j) => {
-      if (i !== j) {
-        return element.concat(word);
-      }
-    })
-    .filter(Boolean) 
+      .map((word, j) => {
+        if (i !== j) {
+          return element.concat(word);
+        }
+      })
+      .filter(Boolean);
     collection.push(...concatenatedWords);
   });
 
   return collection;
 }
 
+const result = wordBuilder(["a", "b", "c", "d"]);
 
-
-
-
-const result = wordBuilder(['a', 'b', 'c', 'd'])
-
-console.log(result)
+console.log(result);

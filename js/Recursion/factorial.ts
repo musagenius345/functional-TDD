@@ -1,9 +1,9 @@
-function factorial(num, workingValue=1) {
+function factorial(num, workingValue = 1) {
   if (num >= 1) {
-    return factorial(num - 1, workingValue*num)
+    return factorial(num - 1, workingValue * num);
   }
 
-  return workingValue
+  return workingValue;
 }
 
-console.log(factorial(0))
+console.log(factorial(0));

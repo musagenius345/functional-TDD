@@ -1,23 +1,19 @@
 export const bubbleSort = (arr: number[]) => {
   if (arr.length === 0) {
-    return []
-  } else if(arr.length === 1){
-    return arr
+    return [];
+  } else if (arr.length === 1) {
+    return arr;
   } else {
     for (let i = 0; i < arr.length; i++) {
       for (let j = 0; j < arr.length - i; j++) {
         if (arr[j] > arr[j + 1]) {
-        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
+          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
         }
       }
     }
-    return arr
+    return arr;
   }
-}
-
-
-
-
+};
 
 // const bubbleSort = (arr) => {
 
@@ -33,7 +29,6 @@ export const bubbleSort = (arr: number[]) => {
 // }
 //   return arr
 //}
-
 
 // function bubbleSort(list) {
 //   let unsorted_until_index = list.length - 1
@@ -57,7 +52,6 @@ export const bubbleSort = (arr: number[]) => {
 
 // const sortedArr = bubbleSort(arr);
 // console.log("Sorted array: ", sortedArr);
-
 
 // const sortArr = arr.sort( (a, b) => a - b)
 // console.log("Built-in sorted:", sortArr);

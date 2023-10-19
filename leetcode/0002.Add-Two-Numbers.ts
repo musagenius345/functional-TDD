@@ -9,7 +9,10 @@ export class ListNode {
   }
 }
 
-export function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNode | null {
+export function addTwoNumbers(
+  l1: ListNode | null,
+  l2: ListNode | null,
+): ListNode | null {
   const dummyHead = new ListNode(); // Dummy head node for the resulting linked list
   let current = dummyHead; // Pointer to the current node in the resulting list
   let carry = 0; // Carry from sum of previous nodes
@@ -27,13 +30,10 @@ export function addTwoNumbers(l1: ListNode | null, l2: ListNode | null): ListNod
   return dummyHead.next; // Return the next node after the dummy head, which is the start of the resulting list
 }
 
-
-
-
 export function addTwoNumbersRecursive(
   l1: ListNode | null,
   l2: ListNode | null,
-  carry: number = 0
+  carry: number = 0,
 ): ListNode | null {
   if (!l1 && !l2 && !carry) return null;
 
@@ -46,11 +46,10 @@ export function addTwoNumbersRecursive(
 
   const newNode = new ListNode(sumDigit);
   newNode.next = addTwoNumbersRecursive(l1?.next, l2?.next, newCarry);
-  
+
   if (newCarry > 0 && !newNode.next) {
     newNode.next = new ListNode(newCarry);
   }
 
   return newNode;
 }
-

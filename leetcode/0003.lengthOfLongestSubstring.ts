@@ -15,41 +15,39 @@ export function lengthOfLongestSubstring(s: string): number {
   return maxLength;
 }
 
-
 export function lengthOfLongestSubstringMap(s: string): number {
-    if (!s) return 0;
+  if (!s) return 0;
 
-    let maxLength = 0;
-    let left = 0;
-    let charIndexMap = new Map<string, number>();
+  let maxLength = 0;
+  let left = 0;
+  let charIndexMap = new Map<string, number>();
 
-    for (let right = 0; right < s.length; right++) {
-        const char = s[right];
-        if (charIndexMap.has(char) && charIndexMap.get(char)! >= left) {
-            left = charIndexMap.get(char)! + 1;
-        }
-        charIndexMap.set(char, right);
-        maxLength = Math.max(maxLength, right - left + 1);
+  for (let right = 0; right < s.length; right++) {
+    const char = s[right];
+    if (charIndexMap.has(char) && charIndexMap.get(char)! >= left) {
+      left = charIndexMap.get(char)! + 1;
     }
+    charIndexMap.set(char, right);
+    maxLength = Math.max(maxLength, right - left + 1);
+  }
 
-    return maxLength;
+  return maxLength;
 }
 
+export function lengthOfLongestSubstringSet(s: number[] | any[]): number {
+  let letterSet = new Set();
+  let left: number = 0;
+  let maxLength: number = 0;
 
-export function lengthOfLongestSubstringSet(s: number[] | any[]): number{
-  let letterSet = new Set()
-  let left: number = 0
-  let maxLength: number = 0
-  
   for (let right = 0; right < s.length; right++) {
-    if(letterSet.has(s[right])){
-      letterSet.delete(s[left])
-      left++
-    } else{
-      letterSet.add(s[right])
-      maxLength = Math.max(maxLength, right - left + 1)
+    if (letterSet.has(s[right])) {
+      letterSet.delete(s[left]);
+      left++;
+    } else {
+      letterSet.add(s[right]);
+      maxLength = Math.max(maxLength, right - left + 1);
     }
   }
-  
-  return maxLength
+
+  return maxLength;
 }

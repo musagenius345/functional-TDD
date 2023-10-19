@@ -1,18 +1,18 @@
 const max = (arr: number[], num = 0) => {
-  console.log('Recursion: ', num);
+  console.log("Recursion: ", num);
 
-  num++
+  num++;
   if (arr.length === 1) {
-    return arr[0]
+    return arr[0];
   }
 
-  let maxRemainder: number = max(arr.slice(1))
+  let maxRemainder: number = max(arr.slice(1));
   if (arr[0] > maxRemainder) {
-    return arr[0]
+    return arr[0];
   }
 
-  return maxRemainder
-}
+  return maxRemainder;
+};
 //
 // console.log(max([1]));
 // console.log(max([134, 22, 99, 0]));

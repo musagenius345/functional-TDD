@@ -1,4 +1,9 @@
-function reverseString(str, reverse = '', end = str.length - 1, previous = end - 1) {
+function reverseString(
+  str,
+  reverse = "",
+  end = str.length - 1,
+  previous = end - 1,
+) {
   if (end >= 0) {
     // Concatenate the last character of the substring to the 'reverse' variable
     reverse += str[end];
@@ -12,4 +17,4 @@ function reverseString(str, reverse = '', end = str.length - 1, previous = end -
 
 const input = "hello";
 const reversed = reverseString(input);
-console.log(reversed);  // Output: "olleh"
+console.log(reversed); // Output: "olleh"

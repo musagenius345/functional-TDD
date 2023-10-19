@@ -14,12 +14,12 @@ function anagramsOf(string: string): string[] {
   const substringAnagrams = anagramsOf(string.slice(1));
 
   // Iterate over each substring anagram:
-  substringAnagrams.forEach(substringAnagram => {
+  substringAnagrams.forEach((substringAnagram) => {
     // Iterate over each index of the substring, from 0 until
     // one index past the end of the string:
     for (let index = 0; index <= substringAnagram.length; index++) {
       // Create a copy of the substring anagram:
-      const copy = substringAnagram.split('');
+      const copy = substringAnagram.split("");
 
       // Insert the first character of our string into the
       // substring anagram copy. Where it will go depends
@@ -27,7 +27,7 @@ function anagramsOf(string: string): string[] {
       copy.splice(index, 0, string[0]);
 
       // Then, take this new string and add it to our collection of anagrams:
-      collection.push(copy.join(''));
+      collection.push(copy.join(""));
     }
   });
 
@@ -35,7 +35,4 @@ function anagramsOf(string: string): string[] {
   return collection;
 }
 
-console.log(anagramsOf('abcd'));
-
-
-
+console.log(anagramsOf("abcd"));

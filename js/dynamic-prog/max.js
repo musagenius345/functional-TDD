@@ -1,15 +1,17 @@
 var max = function (arr, num) {
-    if (num === void 0) { num = 0; }
-    console.log('Recursion: ', num);
-    num++;
-    if (arr.length === 1) {
-        return arr[0];
-    }
-    var maxRemainder = max(arr.slice(1));
-    if (arr[0] > maxRemainder) {
-        return arr[0];
-    }
-    return maxRemainder;
+  if (num === void 0) {
+    num = 0;
+  }
+  console.log("Recursion: ", num);
+  num++;
+  if (arr.length === 1) {
+    return arr[0];
+  }
+  var maxRemainder = max(arr.slice(1));
+  if (arr[0] > maxRemainder) {
+    return arr[0];
+  }
+  return maxRemainder;
 };
 //
 // console.log(max([1]));

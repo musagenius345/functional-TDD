@@ -1,23 +1,20 @@
 export const insertionSort = (arr) => {
   for (let i = 0; i < arr.length; i++) {
-    let tempValue = arr[i]
-    let position = i - 1
+    let tempValue = arr[i];
+    let position = i - 1;
     while (position >= 0) {
       if (arr[position] > tempValue) {
-        arr[position + 1] = arr[position]
-        position = position - 1
+        arr[position + 1] = arr[position];
+        position = position - 1;
       } else {
-        break
+        break;
       }
     }
-      arr[position + 1] = tempValue
+    arr[position + 1] = tempValue;
   }
-    return arr
-}
+  return arr;
+};
 
-
-
-
-let result = insertionSort([55, 22, 11, 8])
+let result = insertionSort([55, 22, 11, 8]);
 
 // console.log(result);

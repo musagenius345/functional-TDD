@@ -1,7 +1,6 @@
-import { Stack } from './Stack.js'
-export class Linter { 
-   stack = new Stack();
- 
+import { Stack } from "./Stack.js";
+export class Linter {
+  stack = new Stack();
 
   lint(text) {
     for (const char of text) {
@@ -34,10 +33,10 @@ export class Linter {
   }
 
   isNotAMatch(openingBrace, closingBrace) {
-    const matchingBraces = new Map()
-    matchingBraces.set('(', ')')
-    matchingBraces.set('{', '}')
-    matchingBraces.set('[', ']')
+    const matchingBraces = new Map();
+    matchingBraces.set("(", ")");
+    matchingBraces.set("{", "}");
+    matchingBraces.set("[", "]");
 
     return closingBrace !== matchingBraces.get(openingBrace);
   }

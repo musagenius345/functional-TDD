@@ -1,11 +1,11 @@
 /**
  * Quick sort Implementation
- * @param {Array} arr 
+ * @param {Array} arr
  * */
 export function quickSort(arr) {
   // Base case: an array with 0 or 1 element is already sorted
   if (arr.length <= 1) {
-    return arr; 
+    return arr;
   }
 
   // Median-of-three pivot selection
@@ -15,9 +15,15 @@ export function quickSort(arr) {
 
   // Calculate the median among the three elements
   let median;
-  if ((first <= middle && middle <= last) || (last <= middle && middle <= first)) {
+  if (
+    (first <= middle && middle <= last) ||
+    (last <= middle && middle <= first)
+  ) {
     median = middle;
-  } else if ((middle <= first && first <= last) || (last <= first && first <= middle)) {
+  } else if (
+    (middle <= first && first <= last) ||
+    (last <= first && first <= middle)
+  ) {
     median = first;
   } else {
     median = last;
@@ -25,7 +31,10 @@ export function quickSort(arr) {
 
   // Swap the median element to the end of the array
   const pivotIndex = arr.indexOf(median);
-  [arr[pivotIndex], arr[arr.length - 1]] = [arr[arr.length - 1], arr[pivotIndex]];
+  [arr[pivotIndex], arr[arr.length - 1]] = [
+    arr[arr.length - 1],
+    arr[pivotIndex],
+  ];
 
   let leftIndex = 0;
   let rightIndex = arr.length - 2;
