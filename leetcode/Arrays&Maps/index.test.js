@@ -1,6 +1,48 @@
-import { containsDuplicate, containsDuplicateTwo, containsDuplicateThree, isAnagram } from 'index.js'
+import { containsDuplicate, containsDuplicateTwo, containsDuplicateThree, isAnagram, groupAnagrams } from 'index.js'
 
 
+describe('groupAnagrams function', () => {
+    test('Example 1', () => {
+        const strs = ["eat", "tea", "tan", "ate", "nat", "bat"];
+        const expectedOutput = [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]];
+        expect(groupAnagrams(strs)).toEqual(expect.arrayContaining(expectedOutput));
+    });
+
+    test('Example 2', () => {
+        const strs = [""];
+        const expectedOutput = [[""]];
+        expect(groupAnagrams(strs)).toEqual(expect.arrayContaining(expectedOutput));
+    });
+
+    test('Example 3', () => {
+        const strs = ["a"];
+        const expectedOutput = [["a"]];
+        expect(groupAnagrams(strs)).toEqual(expect.arrayContaining(expectedOutput));
+    });
+
+    test('Anagrams with different lengths', () => {
+        const strs = ["abc", "abcd", "defg"];
+        const expectedOutput = [["abc"], ["abcd"], ["defg"]];
+        expect(groupAnagrams(strs)).toEqual(expect.arrayContaining(expectedOutput));
+    });
+
+    test('Anagrams with all characters being the same', () => {
+        const strs = ["aaa", "aaa", "aaa"];
+        const expectedOutput = [["aaa", "aaa", "aaa"]];
+        expect(groupAnagrams(strs)).toEqual(expect.arrayContaining(expectedOutput));
+    });
+
+    test('Anagrams with mixed characters', () => {
+        const strs = ["abc", "bac", "def", "fed"];
+        const expectedOutput = [["abc", "bac"], ["def", "fed"]];
+        expect(groupAnagrams(strs)).toEqual(expect.arrayContaining(expectedOutput));
+    });
+
+    test('Performance Test - Large Input', () => {
+        const strs = Array.from({ length: 10000 }, (_, index) => index.toString());
+        expect(groupAnagrams(strs)).toBeDefined();
+    });
+});
 describe('isAnagram function', () => {
     test('Example 1: "anagram" and "nagaram"', () => {
         expect(isAnagram('anagram', 'nagaram')).toBe(true);
