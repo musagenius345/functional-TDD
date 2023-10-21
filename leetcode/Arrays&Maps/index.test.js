@@ -1,4 +1,30 @@
-import { containsDuplicate, containsDuplicateTwo, containsDuplicateThree, isAnagram, groupAnagrams } from 'index.js'
+import { twoSumMid, containsDuplicate, containsDuplicateTwo, containsDuplicateThree, isAnagram, groupAnagrams } from 'index.js'
+
+
+
+
+
+describe('twoSumMid', () => {
+    it('should return [1, 2] for input [2, 7, 11, 15] and target 9', () => {
+        expect(twoSumMid([2, 7, 11, 15], 9)).toEqual([1, 2]);
+    });
+
+    it('should return [1, 3] for input [2, 3, 4] and target 6', () => {
+        expect(twoSumMid([2, 3, 4], 6)).toEqual([1, 3]);
+    });
+
+    it('should return [1, 2] for input [-1, 0] and target -1', () => {
+        expect(twoSumMid([-1, 0], -1)).toEqual([1, 2]);
+    });
+
+    it('should return [2, 5] for input [1, 2, 3, 4, 5] and target 7', () => {
+        expect(twoSumMid([1, 2, 3, 4, 5], 7)).toEqual([2, 5]);
+    });
+
+    it('should return [1, 7] for input [-3, -2, -1, 0, 1, 2, 3] and target 0', () => {
+        expect(twoSumMid([-3, -2, -1, 0, 1, 2, 3], 0)).toEqual([1, 7]);
+    });
+});
 
 
 describe('groupAnagrams function', () => {
