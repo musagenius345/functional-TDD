@@ -18,7 +18,7 @@ class Stack<T> {
     }
 }
 
-function isValid(s: string): boolean {
+export function isValid(s: string): boolean {
     if (typeof s !== 'string') {
         return false; // Invalid input type
     }
