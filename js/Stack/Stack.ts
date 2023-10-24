@@ -1,4 +1,5 @@
 export class Stack {
+  private items: any[]
   constructor() {
     this.items = [];
   }
