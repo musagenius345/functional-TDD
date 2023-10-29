@@ -13,9 +13,11 @@ export class Node<T> {
 /**
  * Represents a linked list with various operations.
  */
-class LinkedList<T> {
+export class LinkedList<T> {
   head: Node<T> | null;
-
+  constructor(){
+    this.head = null
+  }
   /**
    * Adds a new element to the end of the list.
    * @param {T} data - The data to be added to the list.
@@ -39,7 +41,7 @@ class LinkedList<T> {
    * @returns {boolean} - True if the list is empty, false otherwise.
    */
   isEmpty(): boolean{
-    return this.head !== null
+    return this.head === null
   }
   /**
    * Remove linked node by index. if index is not provided last item is removed
@@ -265,37 +267,37 @@ private _getNodeAtIndex(index: number): Node<T> | null {
 }
 
 // Example usage
-const list = new LinkedList<number>();
-list.add(1);
-list.add(2);
-list.add(3);
-
-console.log(list.toArray()); // Output: [1, 2, 3]
-list.delete(2);
-console.log(list.toArray()); // Output: [1, 2]f
-console.log(list.contains(3)); // Output: false
-console.log(list.contains(2)); // Output: True
-list.remove(1)
-console.log(list.toArray())
-list.add(8)
-console.log(list.toArray())
-console.log(list.get(0))
-list.set(0, 88)
-console.log(list.toArray())
-console.log(list.contains(88))
-console.log(list.contains(99))
-
-list.clear()
-console.log(list.toArray())
-
-
-
-
-
-
-
-
-
-
-
-
+// const list = new LinkedList<number>();
+// list.add(1);
+// list.add(2);
+// list.add(3);
+//
+// console.log(list.toArray()); // Output: [1, 2, 3]
+// list.delete(2);
+// console.log(list.toArray()); // Output: [1, 2]f
+// console.log(list.contains(3)); // Output: false
+// console.log(list.contains(2)); // Output: True
+// list.remove(1)
+// console.log(list.toArray())
+// list.add(8)
+// console.log(list.toArray())
+// console.log(list.get(0))
+// list.set(0, 88)
+// console.log(list.toArray())
+// console.log(list.contains(88))
+// console.log(list.contains(99))
+//
+// list.clear()
+// console.log(list.toArray())
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
