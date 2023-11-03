@@ -121,16 +121,7 @@ contains(data: T): boolean {
  */
 
 get(index: number): T | null {
-  // if (index < 0) {
-  //   return null;
-  // }
-  // let count = 0;
-  // let current = this.head;
-  // while (current !== null && count < index) {
-  //   current = current.next;
-  //   count++;
-  // }
-    const current = this._getNodeAtIndex(index) 
+  const current = this._getNodeAtIndex(index) 
   return current ? current.data : null;
 }
 /**

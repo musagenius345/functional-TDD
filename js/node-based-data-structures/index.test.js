@@ -1,7 +1,6 @@
 
 
-import { Node,  LinkedList } from './index';
-
+import { Node,  LinkedList, DoublyLinkedList } from './index'
 
 describe('Node Class', () => {
   test('creates a node with provided data', () => {
@@ -108,5 +107,182 @@ describe('LinkedList Class', () => {
     list.add(2);
     list.clear();
     expect(list.head).toBeNull();
+  });
+});
+
+
+
+describe("DoublyLinkedList", () => {
+  let list;
+
+  beforeEach(() => {
+    list = new DoublyLinkedList();
+  });
+
+  // Test for set method
+  describe("set", () => {
+    it("should set the value at the specified index", () => {
+      list.add(1);
+      list.add(2);
+      list.set(1, 3);
+      expect(list.toArray()).toEqual([1, 3]);
+    });
+
+    it("should handle setting value at the head index", () => {
+      list.add(1);
+      list.add(2);
+      list.set(0, 3);
+      expect(list.toArray()).toEqual([3, 2]);
+    });
+
+    it("should handle setting value at the tail index", () => {
+      list.add(1);
+      list.add(2);
+      list.set(1, 3);
+      expect(list.toArray()).toEqual([1, 3]);
+    });
+  });
+
+  // Test for get method
+  describe("get", () => {
+    it("should get the value at the specified index", () => {
+      list.add(1);
+      list.add(2);
+      expect(list.get(1)).toBe(2);
+    });
+
+    it("should return null for out-of-bounds index", () => {
+      expect(list.get(0)).toBeNull();
+    });
+
+    it("should return null for negative index", () => {
+      expect(list.get(-1)).toBeNull();
+    });
+  });
+
+  // Test for add method
+  describe("add", () => {
+    it("should add elements to the list", () => {
+      list.add(1);
+      list.add(2);
+      expect(list.toArray()).toEqual([1, 2]);
+    });
+
+    it("should increase size after adding elements", () => {
+      list.add(1);
+      list.add(2);
+      expect(list.size()).toBe(2);
+    });
+
+      });
+
+  // Test for subList method
+  describe.skip("subList", () => {
+    it("should return a sublist from the specified indices", () => {
+      list.add(1);
+      list.add(2);
+      list.add(3);
+      list.add(4);
+      const sublist = list.subList(1, 3);
+      expect(sublist?.toArray()).toEqual([2, 3, 4]);
+    });
+
+    it("should return null for invalid indices", () => {
+      list.add(1);
+      list.add(2);
+      const sublist = list.subList(-1, 3);
+      expect(sublist).toBeNull();
+    });
+
+    it("should return an empty list for indices out of bounds", () => {
+      list.add(1);
+      list.add(2);
+      const sublist = list.subList(2, 4);
+      expect(sublist?.toArray()).toEqual([]);
+    });
+  });
+
+  // Test for remove method
+  describe("remove", () => {
+    it("should remove the specified element from the list", () => {
+      list.add(1);
+      list.add(2);
+      list.remove(2);
+      expect(list.toArray()).toEqual([1]);
+    });
+
+    it("should not modify the list if the element is not found", () => {
+      list.add(1);
+      list.add(2);
+      list.remove(3);
+      expect(list.toArray()).toEqual([1, 2]);
+    });
+
+    it("should handle removing the last element from the list", () => {
+      list.add(1);
+      list.remove(1);
+      expect(list.toArray()).toEqual([]);
+    });
+  });
+
+  // Test for contains method
+  describe("contains", () => {
+    it("should return true if the element is in the list", () => {
+      list.add(1);
+      list.add(2);
+      expect(list.contains(2)).toBe(true);
+    });
+
+    it("should return false if the element is not in the list", () => {
+      list.add(1);
+      list.add(2);
+      expect(list.contains(3)).toBe(false);
+    });
+
+    it("should return false for an empty list", () => {
+      expect(list.contains(1)).toBe(false);
+    });
+  });
+
+  // Test for size method
+  describe("size", () => {
+    it("should return the correct size of the list", () => {
+      list.add(1);
+      list.add(2);
+      expect(list.size()).toBe(2);
+    });
+
+    it("should return 0 for an empty list", () => {
+      expect(list.size()).toBe(0);
+    });
+
+    it("should return the correct size after removing elements", () => {
+      list.add(1);
+      list.add(2);
+      list.remove(1);
+      expect(list.size()).toBe(1);
+    });
+  });
+
+  // Test for clear method
+  describe("clear", () => {
+    it("should clear all elements from the list", () => {
+      list.add(1);
+      list.add(2);
+      list.clear();
+      expect(list.toArray()).toEqual([]);
+    });
+
+    it("should set the size to 0 after clearing the list", () => {
+      list.add(1);
+      list.add(2);
+      list.clear();
+      expect(list.size()).toBe(0);
+    });
+
+    it("should clear an empty list without errors", () => {
+      list.clear();
+      expect(list.toArray()).toEqual([]);
+    });
   });
 });
