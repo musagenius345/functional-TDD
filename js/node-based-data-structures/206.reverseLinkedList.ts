@@ -1,4 +1,4 @@
-
+import { convertToArray } from "./convertToArray";
 class ListNode {
     val: number;
     next: ListNode | null;
@@ -36,14 +36,6 @@ node4.next = node5;
 node5.next = null;
 
 const solution = reverseList(node1)
-function convertToArray(head: ListNode | null): any[] {
-    const result = [];
-    while (head !== null) {
-        result.push(head.val);
-        head = head.next;
-    }
-    return result;
-}
 
 console.log(convertToArray(solution));
 

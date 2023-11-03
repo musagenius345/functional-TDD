@@ -1,6 +1,6 @@
 
 
-import { Node, LinkedList } from './Node';
+import { Node,  LinkedList } from './index';
 
 
 describe('Node Class', () => {
