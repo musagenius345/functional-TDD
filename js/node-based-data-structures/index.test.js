@@ -101,6 +101,9 @@ describe('LinkedList Class', () => {
     expect(list.head.data).toBe(1);
     expect(list.head.next.data).toBe(3);
   });
+  
+  
+  
 
   test('clears the linked list', () => {
     list.add(1);
@@ -110,6 +113,83 @@ describe('LinkedList Class', () => {
   });
 });
 
+
+describe("LinkedList insertBefore Method", () => {
+  let list;
+
+  beforeEach(() => {
+    list = new LinkedList();
+    list.add(1);
+    list.add(3);
+    list.add(4);
+  });
+
+  test("inserts data before the specified index", () => {
+    list.insertBefore(2, 1);
+    expect(list.toArray()).toEqual([1, 2, 3, 4]);
+  });
+
+  test("inserts data before the head node", () => {
+    list.insertBefore(0, 0);
+    expect(list.toArray()).toEqual([0, 1, 3, 4]);
+  });
+
+  test("inserts data before the last node", () => {
+    list.insertBefore(5, 2);
+    expect(list.toArray()).toEqual([1, 3, 5, 4]);
+  });
+});
+
+describe("LinkedList insertAfter Method", () => {
+  let list;
+
+  beforeEach(() => {
+    list = new LinkedList();
+    list.add(1);
+    list.add(3);
+    list.add(4);
+  });
+
+  test("inserts data after the specified index", () => {
+    list.insertAfter(2, 0);
+    expect(list.toArray()).toEqual([1, 2, 3, 4]);
+  });
+
+  test("inserts data after the last node", () => {
+    list.insertAfter(5, 2);
+    expect(list.toArray()).toEqual([1, 3, 4, 5]);
+  });
+
+  test("throws RangeError when inserting after an index that does not exist", () => {
+    expect(() => {
+      list.insertAfter(0, -1);
+    }).toThrow(RangeError);
+    expect(list.toArray()).toEqual([1, 3, 4]);
+  });
+});
+
+describe("LinkedList indexOf Method", () => {
+  let list;
+
+  beforeEach(() => {
+    list = new LinkedList();
+    list.add(1);
+    list.add(3);
+    list.add(4);
+  });
+
+  test("returns correct index for existing data", () => {
+    expect(list.indexOf(3)).toBe(1);
+  });
+
+  test("returns -1 for non-existing data", () => {
+    expect(list.indexOf(2)).toBe(-1);
+  });
+
+  test("returns correct index for head node data", () => {
+    expect(list.indexOf(1)).toBe(0);
+  });
+});
 
 
 describe("DoublyLinkedList", () => {
