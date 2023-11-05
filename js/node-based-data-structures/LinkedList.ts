@@ -1,284 +1,211 @@
-import { Node } from "Node"
+//import { Node } from "./Node";
 
-/**
- * Represents a linked list with various operations.
- */
-export class LinkedList<T> {
-  head: Node<T> | null;
-  constructor(){
-    this.head = null
+const head = Symbol("head");
+
+class LinkedListNode < T > {
+  data: T;
+  next: LinkedListNode < T > | null;
+
+  constructor(data: T) {
+    this.data = data;
+    this.next = null;
   }
-  /**
-   * Adds a new element to the end of the list.
-   * @param {T} data - The data to be added to the list.
-   */
+}
+
+export class LinkedList < T > {
+  #head: LinkedListNode < T > | null;
+
+  constructor() {
+    this.#head = null;
+  }
+
+  get head() {
+    return this.#head;
+  }
+
+  set head(node) {
+    this.#head = node;
+  }
+
   add(data: T): void {
-    const newNode = new Node(data);
-
-  if (!this.head) {
-    // If the list is empty, set the new node as the head
-    this.head = newNode;
-  } else {
-    let current = this.head;
-    while (current.next) {
-      current = current.next;
-    }
-    // Set the next of the last node to the new node
-    current.next = newNode;
-  }}
-/**
-   * Checks if the linked list is empty.
-   * @returns {boolean} - True if the list is empty, false otherwise.
-   */
-  isEmpty(): boolean{
-    return this.head === null
-  }
-  /**
-   * Remove linked node by index. if index is not provided last item is removed
-   */
-  delete(index?: number): void {
-    if (index < 0) {
-      // Invalid index or non-numeric argument provided
-      return;
-    }
-
-    if (index === undefined) {
-      // If no index provided, delete the last node
-      if (this.head === null) {
-        // List is empty, nothing to delete
-        return;
+    const newNode = new LinkedListNode(data);
+    if (!this.#head) {
+      this.#head = newNode;
+    } else {
+      let current = this.#head;
+      while (current.next) {
+        current = current.next;
       }
+      current.next = newNode;
+    }
+  }
 
-      if (this.head.next === null) {
-        // Only one node in the list
-        this.head = null;
-      } else {
-        let current = this.head;
-        let previous: Node<T> | null = null;
-        while (current.next !== null) {
-          previous = current;
-          current = current.next;
-        }
-        if (previous) {
-          previous.next = null;
+  isEmpty(): boolean {
+    return this.#head === null;
+  }
+
+  delete(index ? : number): void {
+    if (index !== undefined && index >= 0) {
+      const nodeToRemove = this._getNodeAtIndex(index);
+      if (nodeToRemove) {
+        const prevNode = this._getNodeAtIndex(index - 1);
+        if (prevNode) {
+          prevNode.next = nodeToRemove.next;
+        } else {
+          this.#head = nodeToRemove.next;
         }
       }
     } else {
-      // Delete node at the specified index
-      let current = this.head;
-      let previous: Node<T> | null = null;
-      let count = 0;
-
-      while (current !== null && count < index) {
-        previous = current;
+      let current = this.#head;
+      let prevNode: LinkedListNode < T > | null = null;
+      while (current && current.next) {
+        prevNode = current;
         current = current.next;
-        count++;
       }
-
-      if (current === null) {
-        // Index is out of bounds
-        return;
-      }
-
-      if (previous === null) {
-        // Deleting the head node
-        this.head = current.next;
+      if (prevNode) {
+        prevNode.next = null;
       } else {
-        previous.next = current.next;
+        this.#head = null;
       }
     }
   }
 
- /**
-  * Returns thhhe length of a LinkedList
-  */
   size(): number {
     let count = 0;
-    let current = this.head;
-    while (current !== null) {
+    let current = this.#head;
+    while (current) {
       count++;
       current = current.next;
     }
     return count;
   }
 
-/**
- * Chck if a certain value is in a LinkedList
- */
-contains(data: T): boolean {
-  let current = this.head;
-  while (current !== null) {
-    if (current.data === data) {
-      return true;
+  contains(data: T): boolean {
+    let current = this.#head;
+    while (current) {
+      if (current.data === data) {
+        return true;
+      }
+      current = current.next;
     }
-    current = current.next;
-  }
-  return false;
-}
-
-  /**
- * Returns the data of a given node at a certain index
- */
-
-get(index: number): T | null {
-  const current = this._getNodeAtIndex(index) 
-  return current ? current.data : null;
-}
-/**
- * Modifies thhe data of a given node at a certain index
- */
-set(index: number, value: T): void{
-    // if(index  < 0) return null
-    //
-    // let count = 0
-    // let current = this.head
-    //
-    // while(current !== null && count < index){
-    //   current = current.next
-    //   count++
-    // }
-    const current = this._getNodeAtIndex(index)
-
-    current.data = value
+    return false;
   }
 
-  /** Returns a view of the portion of this list between the specified fromIndex, inclusive, and toIndex, exclusive. 
-    * The returned list is backed by this list, so non-structural changes in the returned list are reflected in this list, and vice-versa.
-    */
-  
+  get(index: number): T | null {
+    const node = this._getNodeAtIndex(index);
+    return node ? node.data : null;
+  }
 
-  subList(fromIndex: number, toIndex: number): LinkedList<T> | null {
-    if (fromIndex < 0 || toIndex > this.size() || fromIndex > toIndex) {
-      // Invalid indices, return null or throw an error as appropriate
+  set(index: number, value: T): void {
+    const node = this._getNodeAtIndex(index);
+    if (node) {
+      node.data = value;
+    }
+  }
+
+  *[Symbol.iterator](): Iterator < T > {
+    let current = this.#head;
+    while (current) {
+      yield current.data;
+      current = current.next;
+    }
+  }
+
+  private _getNodeAtIndex(index: number): LinkedListNode < T > | null {
+    if (index < 0) {
       return null;
     }
 
-    const sublist = new LinkedList<T>();
-    let current = this.head;
-    let index = 0;
-
-    // Traverse the original list until the fromIndex
-    while (current !== null && index < fromIndex) {
+    let count = 0;
+    let current = this.#head;
+    while (current && count < index) {
       current = current.next;
-      index++;
+      count++;
+    }
+    return current;
+  }
+
+  toArray(): T[] {
+    return [...this];
+  }
+
+  remove(data: T): void {
+    let current = this.#head;
+    let prevNode: LinkedListNode < T > | null = null;
+
+    while (current) {
+      if (current.data === data) {
+        if (prevNode) {
+          prevNode.next = current.next;
+        } else {
+          this.#head = current.next;
+        }
+        return;
+      }
+      prevNode = current;
+      current = current.next;
+    }
+  }
+
+  clear(): void {
+    this.#head = null;
+  }
+
+  subList(fromIndex: number, toIndex: number): LinkedList < T > | null {
+    if (fromIndex < 0 || toIndex > this.size() || fromIndex > toIndex) {
+      return null;
     }
 
-    // Add nodes to the sublist until the toIndex (exclusive)
-    while (current !== null && index < toIndex) {
+    const sublist = new LinkedList < T > ();
+    let current = this._getNodeAtIndex(fromIndex);
+
+    for (let i = fromIndex; i < toIndex && current !== null; i++) {
       sublist.add(current.data);
       current = current.next;
-      index++;
     }
 
     return sublist;
   }
 
 
-
-  /** 
-   * Returns an array of all list items
-   * @returns {T[]} list of all the linnked items
-   */
-  toArray(): T[] {
-    const arr: T[] = []
-    let current = this.head
-    if(current === null) return []
-    while(current !== null){
-      arr.push(current.data)
-      current = current.next
+  insertBefore(data: T, index: number): void {
+    if (index === 0) {
+      const newNode = new LinkedListNode(data);
+      newNode.next = this.#head;
+      this.#head = newNode;
+    } else {
+      const prevNode = this._getNodeAtIndex(index - 1);
+      if (prevNode) {
+        const newNode = new LinkedListNode(data);
+        newNode.next = prevNode.next;
+        prevNode.next = newNode;
+      } else {
+        throw new RangeError(`Index ${index} does not exist in the list.`);
+      }
     }
-    return arr;
   }
 
-/**
-   * Removes the first occurrence of the specified element from the list.
-   * @param {T} data - The data to be removed from the list.
-   */
-  remove(data: T): void {
-    if (this.head === null) {
-      // List is empty, nothing to remove
-      return;
+  insertAfter(data: T, index: number): void {
+    const prevNode = this._getNodeAtIndex(index);
+    if (prevNode) {
+      const newNode = new LinkedListNode(data);
+      newNode.next = prevNode.next;
+      prevNode.next = newNode;
+    } else {
+      throw new RangeError(`Index ${index} does not exist in the list.`);
     }
+  }
 
-    if (this.head.data === data) {
-      // If the element to remove is in the head node
-      this.head = this.head.next;
-      return;
-    }
-
-    let current = this.head;
-    let previous: Node<T> | null = null;
-
-    while (current !== null && current.data !== data) {
-      previous = current;
+  indexOf(data: T): number {
+    let current = this.#head;
+    let index = 0;
+    while (current) {
+      if (current.data === data) {
+        return index;
+      }
       current = current.next;
+      index++;
     }
-
-    if (current === null) {
-      // Element not found in the list
-      return;
-    }
-
-    // Remove the node with the specified data
-    if (previous !== null) {
-      previous.next = current.next;
-    }
-  }
-
-// Utilty
-private _getNodeAtIndex(index: number): Node<T> | null {
-  if (index < 0) {
-    return null;
-  }
-
-  let count = 0;
-  let current = this.head;
-  while (current !== null && count < index) {
-    current = current.next;
-    count++;
-  }
-  return current;
-}
-  /**
-   * Removes all elements from the list.
-   */
-  clear(): void{
-    this.head = null
+    return -1;
   }
 }
-
-// Example usage
-// const list = new LinkedList<number>();
-// list.add(1);
-// list.add(2);
-// list.add(3);
-//
-// console.log(list.toArray()); // Output: [1, 2, 3]
-// list.delete(2);
-// console.log(list.toArray()); // Output: [1, 2]f
-// console.log(list.contains(3)); // Output: false
-// console.log(list.contains(2)); // Output: True
-// list.remove(1)
-// console.log(list.toArray())
-// list.add(8)
-// console.log(list.toArray())
-// console.log(list.get(0))
-// list.set(0, 88)
-// console.log(list.toArray())
-// console.log(list.contains(88))
-// console.log(list.contains(99))
-//
-// list.clear()
-// console.log(list.toArray())
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
