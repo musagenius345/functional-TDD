@@ -12,4 +12,3 @@ export class Node<T> {
     this.prev = null;
   }
 }
-

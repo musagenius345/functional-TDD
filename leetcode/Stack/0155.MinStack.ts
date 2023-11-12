@@ -1,5 +1,5 @@
 export class MinStack {
-  private items: { value: number;min: number } [];
+  private items: { value: number; min: number }[];
 
   constructor() {
     this.items = [];
@@ -16,17 +16,17 @@ export class MinStack {
 
   top(): number {
     if (this.items.length === 0) {
-      return undefined
+      return undefined;
     } else {
-      return this.items[this.items.length - 1].value
+      return this.items[this.items.length - 1].value;
     }
   }
 
   getMin(): number {
-   if (this.items.length === 0) {
-     return undefined
-   } else {
-     return this.items[this.items.length - 1].min
-   }
+    if (this.items.length === 0) {
+      return undefined;
+    } else {
+      return this.items[this.items.length - 1].min;
+    }
   }
 }

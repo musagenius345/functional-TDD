@@ -1,26 +1,26 @@
 import { convertToArray } from "./convertToArray";
 class ListNode {
-    val: number;
-    next: ListNode | null;
+  val: number;
+  next: ListNode | null;
 
-    constructor(val?: number, next?: ListNode | null) {
-        this.val = (val === undefined ? 0 : val);
-        this.next = (next === undefined ? null : next);
-    }
+  constructor(val?: number, next?: ListNode | null) {
+    this.val = val === undefined ? 0 : val;
+    this.next = next === undefined ? null : next;
+  }
 }
 
 function reverseList(head: ListNode | null): ListNode {
-    let prev: ListNode | null = null;
-    let current: ListNode | null = head;
+  let prev: ListNode | null = null;
+  let current: ListNode | null = head;
 
-    while (current !== null) {
-        const nextTemp: ListNode | null = current.next;
-        current.next = prev;
-        prev = current;
-        current = nextTemp;
-    }
+  while (current !== null) {
+    const nextTemp: ListNode | null = current.next;
+    current.next = prev;
+    prev = current;
+    current = nextTemp;
+  }
 
-    return prev;
+  return prev;
 }
 
 const node1 = new ListNode(1);
@@ -35,8 +35,6 @@ node3.next = node4;
 node4.next = node5;
 node5.next = null;
 
-const solution = reverseList(node1)
+const solution = reverseList(node1);
 
 console.log(convertToArray(solution));
-
-

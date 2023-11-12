@@ -11,7 +11,6 @@ export function containsDuplicate(nums: number[]): boolean {
   return false; // No duplicates found
 }
 
-
 export function containsDuplicateTwo(nums: number[]): boolean {
   const set = new Set(nums);
   if (set.size === nums.length) {
@@ -23,7 +22,7 @@ export function containsDuplicateTwo(nums: number[]): boolean {
 
 export function containsDuplicateThree(nums: number[]): boolean {
   const numSet = new Set();
-  return nums.some(num => {
+  return nums.some((num) => {
     if (numSet.has(num)) {
       return true; // Found a duplicate
     }

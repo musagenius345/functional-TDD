@@ -2,9 +2,9 @@
 
 const head = Symbol("head");
 
-class LinkedListNode < T > {
+class LinkedListNode<T> {
   data: T;
-  next: LinkedListNode < T > | null;
+  next: LinkedListNode<T> | null;
 
   constructor(data: T) {
     this.data = data;
@@ -12,8 +12,8 @@ class LinkedListNode < T > {
   }
 }
 
-export class LinkedList < T > {
-  #head: LinkedListNode < T > | null;
+export class LinkedList<T> {
+  #head: LinkedListNode<T> | null;
 
   constructor() {
     this.#head = null;
@@ -44,7 +44,7 @@ export class LinkedList < T > {
     return this.#head === null;
   }
 
-  delete(index ? : number): void {
+  delete(index?: number): void {
     if (index !== undefined && index >= 0) {
       const nodeToRemove = this._getNodeAtIndex(index);
       if (nodeToRemove) {
@@ -57,7 +57,7 @@ export class LinkedList < T > {
       }
     } else {
       let current = this.#head;
-      let prevNode: LinkedListNode < T > | null = null;
+      let prevNode: LinkedListNode<T> | null = null;
       while (current && current.next) {
         prevNode = current;
         current = current.next;
@@ -103,7 +103,7 @@ export class LinkedList < T > {
     }
   }
 
-  *[Symbol.iterator](): Iterator < T > {
+  *[Symbol.iterator](): Iterator<T> {
     let current = this.#head;
     while (current) {
       yield current.data;
@@ -111,7 +111,7 @@ export class LinkedList < T > {
     }
   }
 
-  private _getNodeAtIndex(index: number): LinkedListNode < T > | null {
+  private _getNodeAtIndex(index: number): LinkedListNode<T> | null {
     if (index < 0) {
       return null;
     }
@@ -131,7 +131,7 @@ export class LinkedList < T > {
 
   remove(data: T): void {
     let current = this.#head;
-    let prevNode: LinkedListNode < T > | null = null;
+    let prevNode: LinkedListNode<T> | null = null;
 
     while (current) {
       if (current.data === data) {
@@ -151,12 +151,12 @@ export class LinkedList < T > {
     this.#head = null;
   }
 
-  subList(fromIndex: number, toIndex: number): LinkedList < T > | null {
+  subList(fromIndex: number, toIndex: number): LinkedList<T> | null {
     if (fromIndex < 0 || toIndex > this.size() || fromIndex > toIndex) {
       return null;
     }
 
-    const sublist = new LinkedList < T > ();
+    const sublist = new LinkedList<T>();
     let current = this._getNodeAtIndex(fromIndex);
 
     for (let i = fromIndex; i < toIndex && current !== null; i++) {
@@ -166,7 +166,6 @@ export class LinkedList < T > {
 
     return sublist;
   }
-
 
   insertBefore(data: T, index: number): void {
     if (index === 0) {
