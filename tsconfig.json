@@ -7,6 +7,6 @@
     "skipLibCheck": true
   },
 
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "fun-pro.js"],
   "exclude": ["**/*.test.ts"]
 }
