@@ -5,7 +5,7 @@ import {
   containsDuplicateThree,
   isAnagram,
   groupAnagrams,
-} from "index.js";
+} from "./index.js";
 
 describe("twoSumMid", () => {
   it("should return [1, 2] for input [2, 7, 11, 15] and target 9", () => {

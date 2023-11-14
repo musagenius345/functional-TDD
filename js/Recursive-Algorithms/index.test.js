@@ -1,6 +1,6 @@
 // import { describe, test, expect } from '/data/data/com.termux/files/home/.local/share/pnpm/global/5/node_modules/vitest'
 
-import { partition, SortableArray, quickSort } from "index";
+import { partition, SortableArray, quickSort } from "./index.js";
 
 describe("Sorting by partition", () => {
   test("does it sort correctly", () => {

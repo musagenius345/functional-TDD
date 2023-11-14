@@ -1,15 +1,15 @@
-import {
-  describe,
-  it,
-  expect /* test  */,
-} from "/data/data/com.termux/files/home/.local/share/pnpm/global/5/node_modules/vitest";
+// import {
+//   describe,
+//   it,
+//   expect /* test  */,
+// } from "/data/data/com.termux/files/home/.local/share/pnpm/global/5/node_modules/vitest";
 import {
   isSubset,
   checkLetters,
   firstNonDuplicate,
   stringDuplicate,
   getIntersection,
-} from "./index.js";
+} from "./index";
 
 describe("checkLetters", () => {
   it("accepts a string that contains all the letters of the alphabet except one and returns the missing letter", () => {

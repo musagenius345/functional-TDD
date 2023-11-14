@@ -1,4 +1,4 @@
-import { isValid, MinStack, evalRPN } from "index.js";
+import { isValid, MinStack, evalRPN } from "./index.js";
 
 // LEARN a × (b + c) is written a b c + ×
 describe("Evaluate Reverse Polish Notation", () => {
