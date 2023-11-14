@@ -47,7 +47,45 @@ export const reverse = func => (...num) => func(...num.reverse()) // TODO find i
 export const composeuTwo = (func1, func2) => x => func2(func1(x))
 export const composeu = (...funcs) => funcs.reduce((acc, func) => x => func(acc(x)))
 export const composeb = (func1, func2) => (x, y, z) => func2(func1(x, y), z)
-export const compose = (...funcs) =>  (...num) => funcs.reduce((acc, func) => [func(...acc)], num)[0]
+export const compose = (...funcs) => (...args) =>
+  funcs.reduce((result, func, index) => {
+    const flattenedArgs = Array.isArray(result) ? result.flat() : [result];
+    const nextResult = func(...flattenedArgs)
+    return index === funcs.length - 1 ? nextResult : [nextResult]
+  }, args)
+export const limitb = (func, limit) => {
+  let count = 0
+  return (x, y) => {
+  while (count < limit){
+     count++
+    return func(x, y)
+    }
+  }
+}
+export const limit = (func, limit) => {
+  let count = 0;
+  return (...args) => {
+    while(count < limit){
+      count++
+      return func(...args)
+    }
+  }
+}
 
+export function* genFrom(x=0){
+  while (true) {
+    yield x++
+  }
+}
 
+export function* genTo(func, lmt){
+  let count = 0
+  for(const value of func){
+    if(count >= lmt){
+      return
+    } 
 
+    yield value
+    count++
+  } 
+}

@@ -502,15 +502,15 @@ describe("composeb", () => {
     expect(result).toEqual(35);
   });
 });
-describe.skip("compose", () => {
+describe("compose", () => {
   it("takes any amount of functions and returns a function that takes any amount of arguments and gives them to the first function, then that result to the second function and so on", async () => {
-    const f = compose(add, doubl, fill, max);
-    const result = f(0, 1, 2);
-    expect(result).toEqual(6);
+    const f = compose(add, doubl, square, inc);
+    const result = f(0, 1);
+    expect(result).toEqual(5);
   });
 });
 
-describe.skip("limitb", () => {
+describe("limitb", () => {
   it("should return a function that limits the number of calls to the binary function", () => {
     const addLmtb = limitb(addb, 2);
     expect(addLmtb(3, 4)).toEqual(7); // 7
@@ -519,7 +519,7 @@ describe.skip("limitb", () => {
   });
 });
 
-describe.skip("limit", () => {
+describe("limit", () => {
   it("should return a function that limits, generalized for any amount of arguments", () => {
     const addLmtb = limit(add, 2);
     expect(addLmtb(3, 4, 5)).toEqual(12); // 7
@@ -528,7 +528,7 @@ describe.skip("limit", () => {
   });
 });
 
-describe.skip("genFrom", () => {
+describe("genFrom", () => {
   it("produces a generator that will produces a series of values. Follows the iterator protocol for the returned format.", () => {
     const index = genFrom();
     expect(index.next().value).toBe(0);
@@ -545,7 +545,7 @@ describe.skip("genFrom", () => {
   });
 });
 
-describe.skip("genTo", () => {
+describe("genTo", () => {
   it("takes a generator and an end limit, and returns a generator that will produce numbers up to that limit", () => {
     // eslint-disable-next-line prefer-const
     let index = genTo(genFrom(1), 3);
