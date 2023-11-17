@@ -257,7 +257,7 @@ describe("DoublyLinkedList", () => {
     list.add(43)
     const result = list.removeFirstNode()
     const arr = list.toArray()
-       expect(result.data).toBe(801)  
+       expect(result.data).toBe
        expect(arr).toStrictEqual([212, 43])  
     })
   })

@@ -1,13 +1,16 @@
-export class TreeNode<T>{
-  val: T
-  left: TreeNode<T> | null 
-  right: TreeNode<T> | null 
-  constructor(val: T, left = null, right = null){
-    this.val = val
-    this.left = left
-    this.right = right
+
+export class TreeNode<T> {
+  val: T;
+  left: TreeNode<T> | null;
+  right: TreeNode<T> | null;
+
+  constructor(val: T = null, left: TreeNode<T> | null = null, right: TreeNode<T> | null = null) {
+    this.val = val;
+    this.left = left;
+    this.right = right;
   }
 }
+
 //
 // const node1 = new TreeNode(25)
 // const node2 = new TreeNode(10)
