@@ -248,19 +248,15 @@ describe("DoublyLinkedList", () => {
     });
   });
 
-
-
   describe("removeFirstNode", () => {
     test("returns removed node", () => {
-    list.add(801),
-    list.add(212),
-    list.add(43)
-    const result = list.removeFirstNode()
-    const arr = list.toArray()
-       expect(result.data).toBe
-       expect(arr).toStrictEqual([212, 43])  
-    })
-  })
+      list.add(801), list.add(212), list.add(43);
+      const result = list.removeFirstNode();
+      const arr = list.toArray();
+      expect(result.data).toBe;
+      expect(arr).toStrictEqual([212, 43]);
+    });
+  });
 
   // Test for subList method
   describe.skip("subList", () => {
@@ -373,24 +369,20 @@ describe("DoublyLinkedList", () => {
   });
 });
 
-
 describe(" Queues", () => {
-  let queue
-   beforeEach( () => {
-    queue = new Queue()
-    queue.enqueue(15)
-  })
-
-  test("read and enqueue", () => {
-    
-    const head = queue.read()
-    expect(head.data).toBe(15)
+  let queue;
+  beforeEach(() => {
+    queue = new Queue();
+    queue.enqueue(15);
   });
 
+  test("read and enqueue", () => {
+    const head = queue.read();
+    expect(head.data).toBe(15);
+  });
 
   test("dequeue", () => {
-    const result = queue.dequeue()
-    expect(result.data).toBe(15)
-  })
-
-})
+    const result = queue.dequeue();
+    expect(result.data).toBe(15);
+  });
+});

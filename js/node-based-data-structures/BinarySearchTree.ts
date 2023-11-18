@@ -1,17 +1,15 @@
 import { TreeNode } from "./TreeNode";
 
-
 export class BinarySearchTree<T extends number | string> {
   root: TreeNode<T> | null = null;
 
-  
-constructor(initial: T | T[] = []) {
-  if (!Array.isArray(initial)) {
-    initial = [initial];
-  }
+  constructor(initial: T | T[] = []) {
+    if (!Array.isArray(initial)) {
+      initial = [initial];
+    }
 
-  initial.forEach((el) => this.insert(el));
-}
+    initial.forEach((el) => this.insert(el));
+  }
 
   insert(el: T): void {
     this.root = this.insertNode(el, this.root);
@@ -31,7 +29,10 @@ constructor(initial: T | T[] = []) {
     return node;
   }
 
-  traverse(callback: (el: T) => void, node: TreeNode<T> | null = this.root): void {
+  traverse(
+    callback: (el: T) => void,
+    node: TreeNode<T> | null = this.root,
+  ): void {
     if (node) {
       this.traverse(callback, node.left);
       callback(node.val);
@@ -70,7 +71,10 @@ constructor(initial: T | T[] = []) {
     return this.searchNode(searchValue, this.root);
   }
 
-  private searchNode(searchValue: T, node: TreeNode<T> | null): TreeNode<T> | null {
+  private searchNode(
+    searchValue: T,
+    node: TreeNode<T> | null,
+  ): TreeNode<T> | null {
     if (!node || node.val === searchValue) {
       return node;
     }
@@ -84,8 +88,8 @@ constructor(initial: T | T[] = []) {
 
   toArray(): T[] {
     const result: T[] = [];
-    for (const value of this){
-      result.push(value)
+    for (const value of this) {
+      result.push(value);
     }
     return result;
   }
@@ -134,7 +138,7 @@ constructor(initial: T | T[] = []) {
 
     while (current || stack.length > 0) {
       while (current) {
-        stack.push(current)
+        stack.push(current);
         current = current.left;
       }
 
@@ -143,11 +147,11 @@ constructor(initial: T | T[] = []) {
       current = current.right;
     }
   }
-
 }
 
-
-const bst = new BinarySearchTree<number>([5, 3, 7, 2, 4, 6, 8, 20, 1, 12, 88, 33, 17, 9, 23]);
+const bst = new BinarySearchTree<number>([
+  5, 3, 7, 2, 4, 6, 8, 20, 1, 12, 88, 33, 17, 9, 23,
+]);
 
 console.log("In-order traversal:");
 bst.traverse((el) => console.log(el));

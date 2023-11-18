@@ -241,17 +241,15 @@ export class DoublyLinkedList<T> {
     }
   }
 
-
   /**
    * Remove first node from the list
    * @returns {Node<T>} - The removed node
    */
-   removeFirstNode(): Node<T>{
-     const removedNode = this.head;
-      this.head = this.head.next
-      return removedNode
-   }
-
+  removeFirstNode(): Node<T> {
+    const removedNode = this.head;
+    this.head = this.head.next;
+    return removedNode;
+  }
 
   /**
    * Utility method to get the node at a specific index in the Doubly LinkedList.
