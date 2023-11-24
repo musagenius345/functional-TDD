@@ -16,6 +16,7 @@ import {
   minRecurse,
   maxRecurse,
   not,
+  genFromTo,
   acc,
   accPartial,
   accRecurse,
@@ -563,7 +564,7 @@ describe("genTo", () => {
   });
 });
 
-describe.skip("genFromTo", () => {
+describe("genFromTo", () => {
   it("generates values in the specified range", () => {
     const indexInRange = genFromTo(0, 3);
     expect(indexInRange.next().value).toBe(0);
