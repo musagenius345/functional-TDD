@@ -158,25 +158,128 @@ export function* element(arr, gen) {
   }
 }
 
-export function* collect(gen, arr){   
+export function* collect(gen, arr) {
   for (const val of gen) {
-    yield val
-    arr.push(val)
-    
-   }  
+    yield val;
+    arr.push(val);
+  }
 }
 
-export function* filter(gen, predicate){
-   for (const val of gen) {
-    if(predicate(val)){
-      yield  val
-    }   
-  }  
+export function* filter(gen, predicate) {
+  for (const val of gen) {
+    if (predicate(val)) {
+      yield val;
+    }
+  }
 }
 
+export function* filterTail(gen, predicate) {
+  // code
+}
 
+export function* concatTwo(gen1, gen2) {
+  for (const val1 of gen1) {
+    if (val1.done) break;
+    yield val1;
+  }
 
+  for (const val2 of gen2) {
+    yield val2;
+  }
+}
 
+export function* concat(...gens) {
+  for (let gen of gens) {
+    for (let val of gen) {
+      yield val;
+    }
+  }
+}
 
+export function* gensymf(symbol) {
+  let i = 0;
+  while (true) {
+    i++;
+    yield `${symbol}${i}`;
+  }
+}
+
+export function gensymff(unary, seed = 0) {
+  return function* innerGen(symbol) {
+    let i = unary(seed);
+    while (true) {
+      yield `${symbol}${i}`;
+      i = unary(i);
+    }
+  };
+}
+
+export function* fibonaccif(first, second) {
+  while (true) {
+    let val = first;
+    yield val;
+    val = first + second;
+    first = second;
+    second = val;
+  }
+}
+
+export function counter(i) {
+  function up() {
+    i++;
+    return i;
+  }
+
+  function down() {
+    i--;
+    return i;
+  }
+
+  return { up, down };
+}
+
+export function revocableb(binary) {
+  let status;
+  function invoke(a, b) {
+    if (status !== "revoke") {
+      return binary(a, b);
+    } else {
+      return;
+    }
+  }
+
+  function revoke() {
+    status = "revoke"
+  }
+
+  return { revoke, invoke };
+}
+
+export function revocable(func) {
+  let status
+  function invoke(...arg) {
+    if (status !== "revoke") {
+      return func(...arg);
+    } else {
+      return;
+    }
+  }
+
+  function revoke() {
+    status = "revoke"
+  }
+
+  return { revoke, invoke };
+}
+
+export const extract = (arr, prop) => arr.map(element =>  element[prop])
+
+export function m(value, source = value.toString()){
+  return {value: value, source: source.toString()}
+}
+
+export function addmTwo(m1, m2){
+  return {value: m1.value + m2.value, source: `(${m1.source}+${m2.source})`}
+}
 
 
