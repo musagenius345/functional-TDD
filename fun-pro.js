@@ -281,5 +281,93 @@ export function m(value, source = value.toString()){
 export function addmTwo(m1, m2){
   return {value: m1.value + m2.value, source: `(${m1.source}+${m2.source})`}
 }
+export function addm(...ms){
+  let values = 0
+  let sources = ''
+  ms.forEach(element => {
+    values += element.value 
+    sources = sources !== '' ?  sources + `+${element.source}` : `${element.source}`
+  })
 
+
+  return {value: values, source: sources}
+}
+
+
+export function liftmbM(binary, op){
+  return (a, b) => {
+    let value, source
+    if(typeof a === 'object' && a.hasOwnProperty('value')){
+      value = binary(a.value, b.value);
+      source = `(${a.source}${op}${b.source})`
+      
+    } else {
+     value = binary(a, b)
+      source = `(${a}${op}${b})`
+    }
+    return { value, source}
+  }  
+}
+export function liftm(func, op){
+  return (...args) => {
+    let valueArray = [] 
+    let sourceArray = []
+
+    args.forEach(el => {
+    if(typeof el === 'object' && el.hasOwnProperty('value')){
+      valueArray = [...valueArray, el.value]
+      sourceArray = [...sourceArray, el.source]
+    } else{
+        valueArray = [...valueArray, el]
+        sourceArray = [...sourceArray, el.toString()]
+      } 
+    })
+
+
+    const value = valueArray.reduce((acc, curr) => func(acc, curr))
+    const source = '(' + sourceArray.join(op) + ')'
+
+
+    return { value, source}
+  }  
+}
+
+
+export function exp(arr){
+  if(!Array.isArray(arr)){
+    return arr
+  }
+
+
+  if(arr.length > 1 && typeof arr[0] === 'function'){
+   const [func, ...rest] = arr;
+   return func(...rest)
+  }
+  
+}
+
+
+
+/**
+ * Evaluate nested array expressions.
+ *
+ * @param {any} value - The nested array expression.
+ * @returns {any} - The result of the evaluation.
+ */
+
+export function expn(value) {
+  if (!Array.isArray(value)) return value;
+
+  const flattenArray = (arr) => arr.reduce((acc, curr) => acc.concat(Array.isArray(curr) ? flattenArray(curr) : curr), []);
+
+  const flattened = flattenArray(value);
+
+  return flattened.reduceRight((acc, curr) => {
+    if (typeof curr === 'function') {
+      return curr(acc);
+    } else {
+      return [curr, acc];
+    }
+  });
+}
 
