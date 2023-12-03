@@ -1,11 +1,10 @@
 {
   "lspconfig": {
-    "cssls":"false",
-    "html":"false",
+    "cssls": "false",
+    "html": "false",
     "astro": "false",
-    "stylelint_lsp":"false",
-    "tailwindcss":"false",
-    "svelte":"false",
-    
+    "stylelint_lsp": "false",
+    "tailwindcss": "false",
+    "svelte": "false"
   }
 }

@@ -38,8 +38,7 @@ const unsubscribe = messageBus.subscribe((data) => {
 });
 
 // Publish an event
-messageBus.publish({ sender: 'User1', message: 'Hello, world!' });
+messageBus.publish({ sender: "User1", message: "Hello, world!" });
 
 // Unsubscribe (stop listening)
 unsubscribe();
-

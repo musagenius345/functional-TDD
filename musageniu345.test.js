@@ -16,7 +16,6 @@ import {
   minRecurse,
   maxRecurse,
   not,
-  genFromTo,
   acc,
   accPartial,
   accRecurse,
@@ -45,6 +44,36 @@ import {
   limit,
   genFrom,
   genTo,
+  genFromTo,
+  elementGen,
+  element,
+  collect,
+  filter,
+  // filterTail,
+  concatTwo,
+  concat,
+  // concatTail,
+  gensymf,
+  gensymff,
+  fibonaccif,
+  counter,
+  revocableb,
+  revocable,
+  extract,
+  m,
+  addmTwo,
+  addm,
+  liftmbM,
+  // liftmb,
+  liftm,
+  exp,
+  expn,
+  // addg,
+  // liftg,
+  // arrayg,
+  // continuizeu,
+  // continuize,
+  // vector
 } from "./fun-pro.js";
 
 // Test suite for the identity function
@@ -572,5 +601,369 @@ describe("genFromTo", () => {
     expect(indexInRange.next().value).toBe(2);
     expect(indexInRange.next().value).toBe(undefined);
     // You can add more test cases here
+  });
+});
+
+describe("elementGen", () => {
+  test("should produce elements from the array based on the generator", () => {
+    const ele = elementGen(["a", "b", "c", "d"], genFromTo(1, 3));
+    expect(ele.next().value).toBe("b");
+    expect(ele.next().value).toBe("c");
+    expect(ele.next().value).toBe(undefined);
+  });
+});
+
+describe("element", () => {
+  test("should produce each element of the array without a generator", () => {
+    const ele = element(["a", "b", "c", "d"]);
+    expect(ele.next().value).toBe("a");
+    expect(ele.next().value).toBe("b");
+    expect(ele.next().value).toBe("c");
+    expect(ele.next().value).toBe("d");
+    expect(ele.next().value).toBe(undefined);
+  });
+});
+
+describe("collect", () => {
+  test("should collect results in the array using the provided generator", () => {
+    let array = [];
+    let col = collect(genFromTo(0, 2), array);
+
+    expect(col.next().value).toBe(0);
+    expect(col.next().value).toBe(1);
+    expect(col.next().value).toBe(undefined);
+    expect(array).toEqual([0, 1]);
+  });
+});
+
+describe("filter", () => {
+  test("should produce values approved by the predicate", () => {
+    let third = (val) => val % 3 === 0;
+    let fil = filter(genFromTo(0, 5), third);
+
+    expect(fil.next().value).toBe(0);
+    expect(fil.next().value).toBe(3);
+    expect(fil.next().value).toBe(undefined);
+  });
+});
+
+describe("concatTwo", () => {
+  test("should combine sequences from two generators", () => {
+    let con = concatTwo(genFromTo(0, 3), genFromTo(0, 2));
+    expect(con.next().value).toBe(0);
+    expect(con.next().value).toBe(1);
+    expect(con.next().value).toBe(2);
+    expect(con.next().value).toBe(0);
+    expect(con.next().value).toBe(1);
+    expect(con.next().value).toBe(undefined);
+  });
+});
+
+describe("concat", () => {
+  test("should combine sequences from multiple generators", () => {
+    let con = concat(genFromTo(0, 3), genFromTo(0, 2), genFromTo(5, 7));
+    expect(con.next().value).toBe(0);
+    expect(con.next().value).toBe(1);
+    expect(con.next().value).toBe(2);
+    expect(con.next().value).toBe(0);
+    expect(con.next().value).toBe(1);
+    expect(con.next().value).toBe(5);
+    expect(con.next().value).toBe(6);
+    expect(con.next().value).toBe(undefined);
+  });
+});
+
+describe.skip("concatTail", () => {
+  test("should combine sequences from multiple generators using tail-recursion", () => {
+    let con = concatTail(genFromTo(0, 3), genFromTo(0, 2), genFromTo(5, 7));
+    expect(con.next().value).toBe(0);
+    expect(con.next().value).toBe(1);
+    expect(con.next().value).toBe(2);
+    expect(con.next().value).toBe(0);
+    expect(con.next().value).toBe(1);
+    expect(con.next().value).toBe(5);
+    expect(con.next().value).toBe(6);
+    expect(con.next().value).toBe(undefined);
+  });
+});
+
+describe("gensymf", () => {
+  test("should generate unique symbols with incremental suffix", () => {
+    let genG = gensymf("G");
+    let genH = gensymf("H");
+
+    expect(genG.next().value).toBe("G1");
+    expect(genH.next().value).toBe("H1");
+    expect(genG.next().value).toBe("G2");
+    expect(genH.next().value).toBe("H2");
+  });
+});
+
+describe("gensymff", () => {
+  test("should return a gensymf using a unary function and seed", () => {
+    let gensymf = gensymff(inc, 0);
+    let genG = gensymf("G");
+    let genH = gensymf("H");
+
+    expect(genG.next().value).toBe("G1");
+    expect(genH.next().value).toBe("H1");
+    expect(genG.next().value).toBe("G2");
+    expect(genH.next().value).toBe("H2");
+  });
+});
+
+describe("fibonaccif", () => {
+  test("should return the next fibonacci number in the sequence", () => {
+    let fib = fibonaccif(0, 1);
+
+    expect(fib.next().value).toBe(0);
+    expect(fib.next().value).toBe(1);
+    expect(fib.next().value).toBe(1);
+    expect(fib.next().value).toBe(2);
+    expect(fib.next().value).toBe(3);
+    expect(fib.next().value).toBe(5);
+    expect(fib.next().value).toBe(8);
+  });
+});
+
+describe("counter", () => {
+  test("should return an object with up and down functions for an up/down counter", () => {
+    let obj = counter(10);
+    let { up, down } = obj;
+
+    expect(up()).toBe(11);
+    expect(down()).toBe(10);
+    expect(down()).toBe(9);
+    expect(up()).toBe(10);
+  });
+});
+
+describe("revocableb", () => {
+  test("should return an object with an invoke function and a revoke function for a binary function", () => {
+    let rev = revocableb(addb);
+
+    expect(rev.invoke(3, 4)).toBe(7);
+    rev.revoke();
+    expect(rev.invoke(5, 7)).toBe(undefined);
+  });
+});
+
+describe("revocable", () => {
+  test("should return an object with an invoke function and a revoke function for any amount of arguments", () => {
+    let rev = revocable(add);
+
+    expect(rev.invoke(3, 4)).toBe(7);
+    rev.revoke();
+    expect(rev.invoke(5, 7)).toBe(undefined);
+  });
+});
+
+describe("extract", () => {
+  test("should convert each object in the array by extracting the specified property", () => {
+    let people = [{ name: "john" }, { name: "bob" }];
+    let names = extract(people, "name");
+
+    expect(names).toEqual(["john", "bob"]);
+  });
+});
+
+describe("m", () => {
+  test("should return an object with a value and an optional source string", () => {
+    expect(m(1)).toEqual({ value: 1, source: "1" });
+    expect(m(Math.PI, "pi")).toEqual({ value: Math.PI, source: "pi" });
+  });
+});
+
+describe("addmTwo", () => {
+  test("should add two m objects and return an m object", () => {
+    expect(addmTwo(m(3), m(4))).toEqual({ value: 7, source: "(3+4)" });
+    expect(addmTwo(m(1, m(Math.PI, "pi")))).toEqual({
+      value: 4.141592653589793,
+      source: "(1+pi)",
+    });
+  });
+});
+
+describe("addm", () => {
+  test("should add multiple m objects and return an m object", () => {
+    expect(addm(m(1), m(2), m(4))).toEqual({ value: 7, source: "(1+2+4)" });
+  });
+});
+
+describe("liftmbM", () => {
+  test("should return a function that acts on m objects for a binary function and a string", () => {
+    let addmb = liftmbM(addb, "+");
+
+    expect(addmb(m(3), m(4))).toEqual({ value: 7, source: "(3+4)" });
+    expect(liftmbM(mulb, "*")(m(3), m(4))).toEqual({
+      value: 12,
+      source: "(3*4)",
+    });
+  });
+});
+
+describe.skip("liftmb", () => {
+  test("should return a modified function liftmbM that can accept numbers or m objects", () => {
+    let addmb = liftmb(addb, "+");
+
+    expect(addmb(3, 4)).toEqual({ value: 7, source: "(3+4)" });
+  });
+});
+
+describe("liftm", () => {
+  test("should return a function that is generalized for any amount of arguments", () => {
+    let addm = liftm(add, "+");
+
+    expect(addm(m(3), m(4))).toEqual({ value: 7, source: "(3+4)" });
+    expect(liftm(mul, "*")(m(3), m(4))).toEqual({ value: 12, source: "(3*4)" });
+  });
+});
+
+describe("exp", () => {
+  test("should evaluate simple array expressions", () => {
+    let sae = [mul, 1, 2, 4];
+
+    expect(exp(sae)).toBe(8);
+    expect(exp(42)).toBe(42);
+  });
+});
+
+describe("expn", () => {
+  test("should evaluate nested array expressions", () => {
+    let nae = [Math.sqrt, [add, [square, 3], [square, 4]]];
+
+    expect(expn(nae)).toBe(5);
+  });
+});
+
+describe.skip("addg", () => {
+  test("should add from many invocations until it sees an empty invocation", () => {
+    expect(addg()).toBe(undefined);
+    expect(addg(2)()).toBe(2);
+    expect(addg(2)(7)()).toBe(9);
+    expect(addg(3)(0)(4)()).toBe(7);
+    expect(addg(1)(2)(4)(8)()).toBe(15);
+  });
+});
+
+describe.skip("liftg", () => {
+  test("should apply a binary function to many invocations", () => {
+    expect(liftg(mulb)()).toBe(undefined);
+    expect(liftg(mulb)(3)()).toBe(3);
+    expect(liftg(mulb)(3)(0)(4)()).toBe(0);
+    expect(liftg(mulb)(1)(2)(4)(8)()).toBe(64);
+  });
+});
+
+describe.skip("arrayg", () => {
+  test("should build an array from many invocations", () => {
+    expect(arrayg()).toEqual([]);
+    expect(arrayg(3)()).toEqual([3]);
+    expect(arrayg(3)(4)(5)()).toEqual([3, 4, 5]);
+  });
+});
+
+describe.skip("continuizeu", () => {
+  test("should return a function that takes a callback and an argument for a unary function", () => {
+    let sqrtc = continuizeu(Math.sqrt);
+
+    // Mock console.log to capture log output
+    const mockConsoleLog = vi
+      .spyOn(console, "log")
+      .mockImplementation(() => {});
+
+    sqrtc(console.log, 81);
+
+    // Check if console.log was called with the correct argument
+    expect(mockConsoleLog).toHaveBeenCalledWith(9);
+
+    // Restore the original console.log
+    mockConsoleLog.mockRestore();
+  });
+});
+
+describe.skip("continuize", () => {
+  test("should return a function that takes a callback and arguments for any function", () => {
+    let mullc = continuize(mul);
+
+    // Mock console.log to capture log output
+    const mockConsoleLog = vi
+      .spyOn(console, "log")
+      .mockImplementation(() => {});
+
+    mullc(console.log, 81, 4, 2);
+
+    // Check if console.log was called with the correct argument
+    expect(mockConsoleLog).toHaveBeenCalledWith(648);
+
+    // Restore the original console.log
+    mockConsoleLog.mockRestore();
+  });
+});
+
+describe.skip("vector", () => {
+  test("should make an array wrapper object with get, store, and append methods", () => {
+    let v = vector();
+    v.append(7);
+    v.store(1, 8);
+
+    expect(v.get(0)).toBe(7);
+    expect(v.get(1)).toBe(8);
+  });
+});
+
+describe.skip("exploitVector", () => {
+  test("should exploit vector implementation and get access to the internal array", () => {
+    let v = vector();
+    v.append(1);
+    v.append(2);
+
+    // Exploit vector and get access to the internal array
+    let internalData = exploitVector(v);
+
+    expect(internalData).toEqual([1, 2]);
+  });
+});
+
+describe.skip("vectorSafe", () => {
+  test("should rewrite vector to deal with the security concern and prevent access to the internal array", () => {
+    let v = vectorSafe();
+    v.append(1);
+    v.append(2);
+
+    // Exploit vectorSafe and try to get access to the internal array
+    let internalData = exploitVector(v);
+
+    expect(internalData).toBe(undefined);
+  });
+});
+
+describe.skip("pubsub", () => {
+  test("should make a publish/subscribe object that delivers publications to subscribers in the right order", () => {
+    // Mock console.log to capture log output
+    const mockConsoleLog = vi
+      .spyOn(console, "log")
+      .mockImplementation(() => {});
+
+    let ps = pubsub();
+    ps.subscribe(console.log);
+    ps.publish("It works!");
+
+    // Check if console.log was called with the correct argument
+    expect(mockConsoleLog).toHaveBeenCalledWith("It works!");
+
+    // Restore the original console.log
+    mockConsoleLog.mockRestore();
+  });
+});
+
+describe.skip("mapRecurse", () => {
+  test("should perform a transformation for each element of a given array recursively", () => {
+    expect(mapRecurse([1, 2, 3, 4], (x) => x * 2)).toEqual([2, 4, 6, 8]);
+  });
+});
+describe.skip("filterRecurse", () => {
+  test("should filter out items from the array using the predicate function recursively", () => {
+    expect(filterRecurse([1, 2, 3, 4], (x) => x % 2 === 0)).toEqual([2, 4]);
   });
 });

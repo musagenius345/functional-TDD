@@ -45,17 +45,17 @@ const display1 = new TemperatureDisplay();
 temperatureSensor.addObserver(display1);
 
 // Notify observers
-temperatureSensor.notify({ location: 'Room1', temperature: 25 });
+temperatureSensor.notify({ location: "Room1", temperature: 25 });
 
 // Add another observer
 const display2 = new TemperatureDisplay();
 temperatureSensor.addObserver(display2);
 
 // Notify all observers
-temperatureSensor.notify({ location: 'Room1', temperature: 26 });
+temperatureSensor.notify({ location: "Room1", temperature: 26 });
 
 // Remove observer
 temperatureSensor.removeObserver(display1);
 
 // Notify remaining observer
-temperatureSensor.notify({ location: 'Room1', temperature: 27 });
+temperatureSensor.notify({ location: "Room1", temperature: 27 });

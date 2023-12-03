@@ -1,5 +1,4 @@
-
-import {max, fill, doubl, add } from './fun-pro.js'
+import { max, fill, doubl, add } from "./fun-pro.js";
 
 /**
  * Composes multiple functions into a single function with debugging logs.
@@ -12,7 +11,7 @@ function compose(...funcs) {
     return funcs.reduceRight((result, func, index) => {
       const flattenedArgs = Array.isArray(result) ? result.flat() : [result];
       const nextResult = func(...flattenedArgs);
-      console.log(`Step ${funcs.length - index}:`, func.name, '->', nextResult);
+      console.log(`Step ${funcs.length - index}:`, func.name, "->", nextResult);
       return index === funcs.length - 1 ? nextResult : [nextResult];
     }, args);
   };

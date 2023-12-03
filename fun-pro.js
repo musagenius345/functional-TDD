@@ -240,6 +240,7 @@ export function counter(i) {
 
 export function revocableb(binary) {
   let status;
+
   function invoke(a, b) {
     if (status !== "revoke") {
       return binary(a, b);
@@ -249,14 +250,15 @@ export function revocableb(binary) {
   }
 
   function revoke() {
-    status = "revoke"
+    status = "revoke";
   }
 
   return { revoke, invoke };
 }
 
 export function revocable(func) {
-  let status
+  let status;
+
   function invoke(...arg) {
     if (status !== "revoke") {
       return func(...arg);
@@ -266,87 +268,82 @@ export function revocable(func) {
   }
 
   function revoke() {
-    status = "revoke"
+    status = "revoke";
   }
 
   return { revoke, invoke };
 }
 
-export const extract = (arr, prop) => arr.map(element =>  element[prop])
+export const extract = (arr, prop) => arr.map((element) => element[prop]);
 
-export function m(value, source = value.toString()){
-  return {value: value, source: source.toString()}
+export function m(value, source = value.toString()) {
+  return { value: value, source: source.toString() };
 }
 
-export function addmTwo(m1, m2){
-  return {value: m1.value + m2.value, source: `(${m1.source}+${m2.source})`}
+export function addmTwo(m1, m2) {
+  // console.log(m1)
+
+  let value = m1.value + m2.value;
+  let source = `(${m1.source.toString()}+${m2.source.toString()})`;
+  return { value, source };
 }
-export function addm(...ms){
-  let values = 0
-  let sources = ''
-  ms.forEach(element => {
-    values += element.value 
-    sources = sources !== '' ?  sources + `+${element.source}` : `${element.source}`
-  })
+export function addm(...ms) {
+  let values = 0;
+  let sources = "";
+  ms.forEach((element) => {
+    values += element.value;
+    sources =
+      sources !== "" ? sources + `+${element.source}` : `${element.source}`;
+  });
 
-
-  return {value: values, source: sources}
+  return { value: values, source: "(" + sources + ")" };
 }
 
-
-export function liftmbM(binary, op){
+export function liftmbM(binary, op) {
   return (a, b) => {
-    let value, source
-    if(typeof a === 'object' && a.hasOwnProperty('value')){
+    let value, source;
+    if (typeof a === "object" && a.hasOwnProperty("value")) {
       value = binary(a.value, b.value);
-      source = `(${a.source}${op}${b.source})`
-      
+      source = `(${a.source}${op}${b.source})`;
     } else {
-     value = binary(a, b)
-      source = `(${a}${op}${b})`
+      value = binary(a, b);
+      source = `(${a}${op}${b})`;
     }
-    return { value, source}
-  }  
+    return { value, source };
+  };
 }
-export function liftm(func, op){
+export function liftm(func, op) {
   return (...args) => {
-    let valueArray = [] 
-    let sourceArray = []
+    let valueArray = [];
+    let sourceArray = [];
 
-    args.forEach(el => {
-    if(typeof el === 'object' && el.hasOwnProperty('value')){
-      valueArray = [...valueArray, el.value]
-      sourceArray = [...sourceArray, el.source]
-    } else{
-        valueArray = [...valueArray, el]
-        sourceArray = [...sourceArray, el.toString()]
-      } 
-    })
+    args.forEach((el) => {
+      if (typeof el === "object" && el.hasOwnProperty("value")) {
+        valueArray = [...valueArray, el.value];
+        sourceArray = [...sourceArray, el.source];
+      } else {
+        valueArray = [...valueArray, el];
+        sourceArray = [...sourceArray, el.toString()];
+      }
+    });
 
+    const value = valueArray.reduce((acc, curr) => func(acc, curr));
+    const source = "(" + sourceArray.join(op) + ")";
 
-    const value = valueArray.reduce((acc, curr) => func(acc, curr))
-    const source = '(' + sourceArray.join(op) + ')'
-
-
-    return { value, source}
-  }  
+    return { value, source };
+  };
 }
 
-
-export function exp(arr){
-  if(!Array.isArray(arr)){
-    return arr
+export function exp(arr) {
+  if (!Array.isArray(arr)) {
+    return arr;
   }
 
-
-  if(arr.length > 1 && typeof arr[0] === 'function'){
-   const [func, ...rest] = arr;
-   return func(...rest)
+  if (arr.length > 1 && typeof arr[0] === "function") {
+    const [func, ...rest] = arr;
+    return func(...rest);
   }
-  
 }
-
-
 
 /**
  * Evaluate nested array expressions.
@@ -358,16 +355,20 @@ export function exp(arr){
 export function expn(value) {
   if (!Array.isArray(value)) return value;
 
-  const flattenArray = (arr) => arr.reduce((acc, curr) => acc.concat(Array.isArray(curr) ? flattenArray(curr) : curr), []);
+  const flattenArray = (arr) =>
+    arr.reduce(
+      (acc, curr) =>
+        acc.concat(Array.isArray(curr) ? flattenArray(curr) : curr),
+      [],
+    );
 
   const flattened = flattenArray(value);
 
   return flattened.reduceRight((acc, curr) => {
-    if (typeof curr === 'function') {
+    if (typeof curr === "function") {
       return curr(acc);
     } else {
       return [curr, acc];
     }
   });
 }
-
