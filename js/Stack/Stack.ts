@@ -1,5 +1,5 @@
-export class Stack {
-  private items: any[];
+export class Stack<T> {
+  private items: T[];
   constructor() {
     this.items = [];
   }
