@@ -1,4 +1,4 @@
-size](https://img.shields.io/github/repo-size/musagenius345/functional-TDD)
+![GitHub repo size](https://img.shields.io/github/repo-size/musagenius345/functional-TDD)
 # js-function-fun
 
 A list of small & fun functional programming exercises in JavaScript.
